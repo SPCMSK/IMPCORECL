@@ -5,63 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMP CORE - Patrones Mentales Inmersivos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             background-color: #121212;
             color: #ffffff;
+            scroll-behavior: smooth; /* Transición suave */
         }
         header {
-            background-color: #1e1e1e;
+            background-color: rgba(30, 30, 30, 1); /* Color sólido */
+            transition: background-color 0.3s ease;
             padding: 10px 20px;
             width: 100%;
+            height: 80px; /* Tamaño fijo para el header */
             box-sizing: border-box;
             display: flex;
-            justify-content: center;
-            position: relative;
+            justify-content: space-between; /* Distribuir los elementos */
+            align-items: center; /* Centra verticalmente los elementos */
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
+        
+        header .logo-container {
+            flex-grow: 1; /* Permite que el contenedor del logo ocupe el espacio disponible */
+            text-align: center; /* Centra el logo */
+        }
+        
         header img {
-            max-width: 150px;
+            height: 80px; /* Ajustar el tamaño del logo */
+            width: auto;
+        }
+        
+        nav {
+            display: flex;
+            gap: 15px; /* Espacio entre los enlaces */
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 25px; /* Espacio entre los iconos */
+        }
+        
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5em; /* Tamaño de los iconos */
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: #e91e63;
+        }
+
+        header.transparent {
+            background-color: rgba(30, 30, 30, 0.5); /* Color transparente */
+        }
+        
+        header img {
+            height: 100px; /* Define un tamaño fijo para el logo */
+            width: auto; /* Mantiene la proporción del logo */
         }
         nav {
             position: absolute;
             left: 20px;
-            top: 80%;
+            top: 60%;
             transform: translateY(-50%);
             display: flex;
             gap: 15px; /* Espacio entre botones */
             align-items: center;
         }
         nav a {
-            color: #ffffff;
+            color: #ffffff; /* Texto blanco por defecto */
             text-decoration: none;
             font-weight: 700;
             cursor: pointer;
             font-size: 1.2em;
             padding: 10px 15px;
-            background-color: #2c2c2c;
+            background-color: transparent; /* Fondo transparente por defecto */
+            border: 2px solid transparent; /* Bordes transparentes por defecto */
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
+        
         nav a:hover {
-            background-color: #e91e63;
+            background-color: #e91e63; /* Fondo rosado al pasar el mouse */
+            color: #ffffff; /* Mantener el color de texto blanco */
+            border-color: #e91e63; /* Bordes rosados cuando se pasa el mouse */
         }
+        
         .hero {
             background-image: url('images/background.jpg');
-            background-size: cover;
-            background-position: center;
+            background-size: cover; /* Asegura que la imagen cubra toda el área */
+            background-position: center; /* Centra la imagen en el contenedor */
+            background-attachment: fixed; /* La imagen se mantiene fija al hacer scroll */
+            height: 100vh; /* 100% de la altura de la ventana */
             text-align: center;
-            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            width: 100%;
             padding: 60px 20px;
             box-sizing: border-box;
         }
+        
         .hero::before {
             content: '';
             position: absolute;
@@ -79,6 +128,7 @@
             width: 100%;
             margin: 0 auto;
         }
+
         .hero h1 {
             font-size: 3.5em;
             margin: 0 0 20px 0;
@@ -182,14 +232,29 @@
 </head>
 <body>
     <header>
+        <div class="logo-container">
+            <img src="images/LOGOIMP.png" alt="IMP CORE Logo">
+        </div>
         <nav>
             <a href="#inicio">Inicio</a>
             <a href="#eventos">Eventos</a>
             <a href="#lanzamientos">Lanzamientos</a>
             <a href="#contacto">Contacto</a>
         </nav>
-        <img src="images/LOGOIMP.png" alt="IMP CORE Logo">
+        <!-- Redes sociales -->
+        <div class="social-icons">
+            <a href="https://www.instagram.com/impcore.cl" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/impcore.cl" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/impcore_cl" target="_blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
     </header>
+    
 
     <section class="hero" id="inicio">
         <div class="hero-content">
@@ -247,6 +312,31 @@
             <p>Artista: DJ Deep<br>Precio: $12</p>
             <button onclick="location.href='https://link_a_compra_album3.com'">Comprar Álbum</button>
         </div>
+        <script>
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 10) { // Si el usuario scrollea más de 10px
+                    header.classList.add('transparent');
+                } else {
+                    header.classList.remove('transparent');
+                }
+            });
+        </script>
+        <script>
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // Evita el salto instantáneo
+                    const target = document.querySelector(this.getAttribute('href'));
+        
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth', // Desplazamiento suave
+                            block: 'start'      // Alineación al inicio de la sección
+                        });
+                    }
+                });
+            });
+        </script>
     </section>
 
     <footer>
