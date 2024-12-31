@@ -68,6 +68,7 @@
         header img {
             height: 100px; /* Define un tamaño fijo para el logo */
             width: auto; /* Mantiene la proporción del logo */
+            transition: opacity 0.5s ease; /* Desvanecimiento suave */
         }
         nav {
             position: absolute;
@@ -237,6 +238,53 @@
             margin: 0 auto; /* Centra la imagen */
             display: block; /* Asegura que la imagen esté centrada */
         }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            header .logo-container {
+                margin: 0 auto;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .hero p {
+                font-size: 1em;
+            }
+            .hero button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            .event, .music {
+                padding: 15px;
+            }
+            .event img, .music img {
+                width: 100%; /* Para que las imágenes no se desborden */
+                height: auto;
+            }
+        }
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+            }
+            nav a {
+                font-size: 1em;
+                padding: 8px 10px;
+            }
+            .hero h1 {
+                font-size: 2em;
+            }
+            .hero p {
+                font-size: 0.9em;
+            }
+        }
         
     </style>
 </head>
@@ -346,6 +394,19 @@
                 });
             });
         </script>
+        <script>
+            window.addEventListener('scroll', () => {
+                const logo = document.querySelector('header img'); // Selecciona el logo
+                const scrollThreshold = 100; // Cantidad de píxeles para comenzar el desvanecimiento
+        
+                if (window.scrollY > scrollThreshold) {
+                    logo.style.opacity = '0'; // Logo se desvanece
+                } else {
+                    logo.style.opacity = '1'; // Logo vuelve a ser visible
+                }
+            });
+        </script>
+        
     </section>
 
     <footer>
