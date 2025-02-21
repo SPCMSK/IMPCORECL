@@ -6,104 +6,84 @@
     <title>IMP CORE - Patrones Mentales Inmersivos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Slick Carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             background-color: #121212;
             color: #ffffff;
-            scroll-behavior: smooth; /* Transición suave */
+            scroll-behavior: smooth;
         }
         header {
-            background-color: rgb(30, 30, 30, 0.5); /* Color sólido */
+            background-color: rgba(30, 30, 30, 0.5);
             transition: background-color 0.3s ease;
             padding: 10px 20px;
             width: 100%;
-            height: 80px; /* Tamaño fijo para el header */
+            height: 80px;
             box-sizing: border-box;
             display: flex;
-            justify-content: space-between; /* Distribuir los elementos */
-            align-items: center; /* Centra verticalmente los elementos */
+            justify-content: space-between;
+            align-items: center;
             position: fixed;
             top: 0;
             z-index: 1000;
         }
-        
         header .logo-container {
-            flex-grow: 1; /* Permite que el contenedor del logo ocupe el espacio disponible */
-            text-align: center; /* Alinea el logo hacia la izquierda */
-            margin-left: 100px; /* Ajusta el margen izquierdo para moverlo más a la derecha */
-            margin-top: 10px; /* Ajusta este valor para mover el logo hacia abajo */
+            flex-grow: 1;
+            text-align: center;
+            margin-left: 100px;
+            margin-top: 10px;
         }
-        
         header img {
-            height: 80px; /* Ajustar el tamaño del logo */
+            height: 80px;
             width: auto;
+            transition: opacity 0.5s ease;
         }
-        
         nav {
             display: flex;
-            gap: 15px; /* Espacio entre los enlaces */
+            gap: 15px;
         }
-        
         .social-icons {
             display: flex;
-            gap: 25px; /* Espacio entre los iconos */
+            gap: 25px;
         }
-        
         .social-icons a {
             color: #ffffff;
-            font-size: 1.5em; /* Tamaño de los iconos */
+            font-size: 1.5em;
             transition: color 0.3s ease;
         }
-        
         .social-icons a:hover {
             color: #e91e63;
         }
-
         header.transparent {
-            background-color: rgba(30, 30, 30, 0.5); /* Color transparente */
-        }
-        
-        header img {
-            height: 100px; /* Define un tamaño fijo para el logo */
-            width: auto; /* Mantiene la proporción del logo */
-            transition: opacity 0.5s ease; /* Desvanecimiento suave */
-        }
-        nav {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: 15px; /* Espacio entre botones */
-            align-items: center;
+            background-color: rgba(30, 30, 30, 0.5);
         }
         nav a {
-            color: #ffffff; /* Texto blanco por defecto */
+            color: #ffffff;
             text-decoration: none;
             font-weight: 700;
             cursor: pointer;
             font-size: 1.2em;
             padding: 10px 15px;
-            background-color: transparent; /* Fondo transparente por defecto */
-            border: 2px solid transparent; /* Bordes transparentes por defecto */
+            background-color: transparent;
+            border: 2px solid transparent;
             border-radius: 5px;
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
-        
         nav a:hover {
-            background-color: #e91e63; /* Fondo rosado al pasar el mouse */
-            color: #ffffff; /* Mantener el color de texto blanco */
-            border-color: #e91e63; /* Bordes rosados cuando se pasa el mouse */
+            background-color: #e91e63;
+            color: #ffffff;
+            border-color: #e91e63;
         }
-        
         .hero {
             background-image: url('images/background.jpg');
-            background-size: cover; /* Asegura que la imagen cubra toda el área */
-            background-position: center; /* Centra la imagen en el contenedor */
-            background-attachment: fixed; /* La imagen se mantiene fija al hacer scroll */
-            height: 100vh; /* 100% de la altura de la ventana */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -113,7 +93,6 @@
             padding: 60px 20px;
             box-sizing: border-box;
         }
-        
         .hero::before {
             content: '';
             position: absolute;
@@ -131,7 +110,6 @@
             width: 100%;
             margin: 0 auto;
         }
-
         .hero h1 {
             font-size: 3.5em;
             margin: 0 0 20px 0;
@@ -163,7 +141,7 @@
             text-align: center;
             position: relative;
         }
-        #eventos {
+        #eventos, #lanzamientos {
             background-image: url('images/eventos.png');
             background-size: cover;
             background-position: center;
@@ -171,16 +149,7 @@
             position: relative;
             color: #ffffff;
         }
-        #lanzamientos {
-            background-image: url('images/eventos.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            color: #ffffff;
-        }
-        #eventos::before,
-        #lanzamientos::before {
+        #eventos::before, #lanzamientos::before {
             content: '';
             position: absolute;
             top: 0;
@@ -190,8 +159,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             z-index: 1;
         }
-        #eventos > *,
-        #lanzamientos > * {
+        #eventos > *, #lanzamientos > * {
             position: relative;
             z-index: 2;
         }
@@ -201,6 +169,11 @@
             margin: 20px;
             padding: 20px;
             border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .event:hover, .music:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         .event img, .music img {
             max-width: 100%;
@@ -209,7 +182,7 @@
         .event h3, .music h3 {
             margin-top: 15px;
         }
-        .event button, .music button {
+        .button {
             margin-top: 10px;
             padding: 10px 20px;
             background-color: #e91e63;
@@ -218,6 +191,10 @@
             font-size: 1em;
             cursor: pointer;
             border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #d11556;
         }
         footer {
             background-color: #1e1e1e;
@@ -232,11 +209,33 @@
             text-decoration: none;
         }
         .music img {
-            max-width: 100%; /* Asegura que la imagen no se desborde */
-            height: auto; /* Mantiene la proporción de la imagen */
-            width: 150px; /* Ajusta el tamaño a 250px o el valor que prefieras */
-            margin: 0 auto; /* Centra la imagen */
-            display: block; /* Asegura que la imagen esté centrada */
+            max-width: 100%;
+            height: auto;
+            width: 150px;
+            margin: 0 auto;
+            display: block;
+        }
+        /* Estilos para los botones del carrusel */
+        .slick-prev, .slick-next {
+            width: 40px !important;
+            height: 40px !important;
+            z-index: 1;
+        }
+        .slick-prev {
+            left: 25px !important;
+        }
+        .slick-next {
+            right: 25px !important;
+        }
+        .slick-prev:before, .slick-next:before {
+            font-size: 40px !important;
+            color: #e91e63 !important;
+        }
+        /* Aumentar el tamaño de los títulos de las secciones */
+        .section h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #e91e63;
         }
         @media (max-width: 768px) {
             header {
@@ -245,8 +244,8 @@
                 padding: 20px;
             }
             header img {
-                height: 50px; /* Tamaño del logo en pantallas pequeñas */
-                margin-top: -10px; /* Sube el logo 10px en móviles */
+                height: 50px;
+                margin-top: -10px;
             }
             header .logo-container {
                 margin: 0 auto;
@@ -270,7 +269,7 @@
                 padding: 15px;
             }
             .event img, .music img {
-                width: 100%; /* Para que las imágenes no se desborden */
+                width: 100%;
                 height: auto;
             }
         }
@@ -289,7 +288,6 @@
                 font-size: 0.9em;
             }
         }
-        
     </style>
 </head>
 <body>
@@ -303,7 +301,6 @@
             <a href="#lanzamientos">Lanzamientos</a>
             <a href="#contacto">Contacto</a>
         </nav>
-        <!-- Redes sociales -->
         <div class="social-icons">
             <a href="https://www.instagram.com/impcore.cl" target="_blank">
                 <i class="fab fa-instagram"></i>
@@ -316,7 +313,6 @@
             </a>
         </div>
     </header>
-    
 
     <section class="hero" id="inicio">
         <div class="hero-content">
@@ -328,94 +324,143 @@
 
     <section class="section" id="eventos">
         <h2>Próximos Eventos</h2>
-
-        <div class="event">
-            <img src="ruta_a_imagen_evento1.jpg" alt="Evento 1">
-            <h3>Concierto Electrónico</h3>
-            <p>Fecha: 15 de Enero, 2024<br>Lugar: Valparaíso, Chile</p>
-            <button onclick="location.href='https://link_a_ticket_evento1.com'">Comprar Ticket</button>
-        </div>
-
-        <div class="event">
-            <img src="ruta_a_imagen_evento2.jpg" alt="Evento 2">
-            <h3>Festival de Rock</h3>
-            <p>Fecha: 22 de Enero, 2024<br>Lugar: Santiago, Chile</p>
-            <button onclick="location.href='https://link_a_ticket_evento2.com'">Comprar Ticket</button>
-        </div>
-
-        <div class="event">
-            <img src="ruta_a_imagen_evento3.jpg" alt="Evento 3">
-            <h3>Teatro Musical</h3>
-            <p>Fecha: 30 de Enero, 2024<br>Lugar: Viña del Mar, Chile</p>
-            <button onclick="location.href='https://link_a_ticket_evento3.com'">Comprar Ticket</button>
+        <div class="event-carousel">
+            <div class="event">
+                <img src="ruta_a_imagen_evento1.jpg" alt="Evento 1">
+                <h3>Concierto Electrónico</h3>
+                <p>Fecha: 15 de Enero, 2024<br>Lugar: Valparaíso, Chile</p>
+                <button class="button" onclick="location.href='https://link_a_ticket_evento1.com'">Comprar Ticket</button>
+            </div>
+            <div class="event">
+                <img src="ruta_a_imagen_evento2.jpg" alt="Evento 2">
+                <h3>Festival de Rock</h3>
+                <p>Fecha: 22 de Enero, 2024<br>Lugar: Santiago, Chile</p>
+                <button class="button" onclick="location.href='https://link_a_ticket_evento2.com'">Comprar Ticket</button>
+            </div>
+            <div class="event">
+                <img src="ruta_a_imagen_evento3.jpg" alt="Evento 3">
+                <h3>Teatro Musical</h3>
+                <p>Fecha: 30 de Enero, 2024<br>Lugar: Viña del Mar, Chile</p>
+                <button class="button" onclick="location.href='https://link_a_ticket_evento3.com'">Comprar Ticket</button>
+            </div>
         </div>
     </section>
 
     <section class="section" id="lanzamientos">
         <h2>Lanzamientos</h2>
-
-        <div class="music">
-            <img src="images/impxwoo.png" alt="Álbum 1">
-            <h3>IMPXWOO Sessions</h3>
-            <button onclick="window.open('https://soundcloud.com/imp-records-820395379/sets/imp-x-woo?si=6b939c67c1db4f93a6f4cbbe44579b69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">Escuhalos Aqui</button>
+        <div class="music-carousel">
+            <div class="music">
+                <img src="images/impxwoo.png" alt="Álbum 1">
+                <h3>IMPXWOO Sessions</h3>
+                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+                <button class="button" onclick="window.open('https://soundcloud.com/imp-records-820395379/sets/imp-x-woo?si=6b939c67c1db4f93a6f4cbbe44579b69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">Escúchalos Aquí</button>
+            </div>
+            <div class="music">
+                <img src="ruta_a_imagen_album2.jpg" alt="Álbum 2">
+                <h3>Beat Experimental</h3>
+                <p>Artista: Producer X<br>Precio: $8</p>
+                <button class="button" onclick="location.href='https://link_a_compra_album2.com'">Comprar Álbum</button>
+            </div>
+            <div class="music">
+                <img src="ruta_a_imagen_album3.jpg" alt="Álbum 3">
+                <h3>Mix Deep House</h3>
+                <p>Artista: DJ Deep<br>Precio: $12</p>
+                <button class="button" onclick="location.href='https://link_a_compra_album3.com'">Comprar Álbum</button>
+            </div>
         </div>
-
-        <div class="music">
-            <img src="ruta_a_imagen_album2.jpg" alt="Álbum 2">
-            <h3>Beat Experimental</h3>
-            <p>Artista: Producer X<br>Precio: $8</p>
-            <button onclick="location.href='https://link_a_compra_album2.com'">Comprar Álbum</button>
-        </div>
-
-        <div class="music">
-            <img src="ruta_a_imagen_album3.jpg" alt="Álbum 3">
-            <h3>Mix Deep House</h3>
-            <p>Artista: DJ Deep<br>Precio: $12</p>
-            <button onclick="location.href='https://link_a_compra_album3.com'">Comprar Álbum</button>
-        </div>
-        <script>
-            window.addEventListener('scroll', () => {
-                const header = document.querySelector('header');
-                if (window.scrollY > 10) { // Si el usuario scrollea más de 10px
-                    header.classList.add('transparent');
-                } else {
-                    header.classList.remove('transparent');
-                }
-            });
-        </script>
-        <script>
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault(); // Evita el salto instantáneo
-                    const target = document.querySelector(this.getAttribute('href'));
-        
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth', // Desplazamiento suave
-                            block: 'start'      // Alineación al inicio de la sección
-                        });
-                    }
-                });
-            });
-        </script>
-        <script>
-            window.addEventListener('scroll', () => {
-                const logo = document.querySelector('header img'); // Selecciona el logo
-                const scrollThreshold = 100; // Cantidad de píxeles para comenzar el desvanecimiento
-        
-                if (window.scrollY > scrollThreshold) {
-                    logo.style.opacity = '0'; // Logo se desvanece
-                } else {
-                    logo.style.opacity = '1'; // Logo vuelve a ser visible
-                }
-            });
-        </script>
-        
     </section>
 
     <footer>
         <p>&copy; 2024 IMP CORE. Todos los derechos reservados.</p>
         <p>Síguenos en <a href="https://www.instagram.com/impcore.cl" target="_blank">Instagram</a></p>
     </footer>
+
+    <!-- jQuery y Slick Carousel JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // Inicializar el carrusel de eventos
+        $(document).ready(function(){
+            $('.event-carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+
+        // Inicializar el carrusel de lanzamientos
+        $(document).ready(function(){
+            $('.music-carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+        });
+
+        // Efecto de desvanecimiento del header al hacer scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const logo = document.querySelector('header img');
+            const scrollThreshold = 100;
+
+            if (window.scrollY > scrollThreshold) {
+                header.classList.add('transparent');
+                logo.style.opacity = '0';
+            } else {
+                header.classList.remove('transparent');
+                logo.style.opacity = '1';
+            }
+        });
+
+        // Desplazamiento suave al hacer clic en enlaces
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
