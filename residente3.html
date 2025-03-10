@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residente 1 - IMP CORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Estilos copiados de index.html */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
+        header {
+            background-color: rgba(30, 30, 30, 0.5);
+            transition: background-color 0.3s ease;
+            padding: 10px 20px;
+            width: 100%;
+            height: 80px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        header .logo-container {
+            flex-grow: 1;
+            text-align: center;
+            margin-left: 100px;
+            margin-top: 10px;
+        }
+        header img {
+            height: 80px;
+            width: auto;
+            transition: opacity 0.5s ease;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 25px;
+        }
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+        .social-icons a:hover {
+            color: #e91e63;
+        }
+        header.transparent {
+            background-color: rgba(30, 30, 30, 0.5);
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 10px 15px;
+            background-color: transparent;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #e91e63;
+            color: #ffffff;
+            border-color: #e91e63;
+        }
+        .section {
+            padding: 120px 20px 50px; /* Ajuste para el header fijo */
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+        }
+        .residente-content {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .residente-content img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid #e91e63;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #e91e63;
+            border: none;
+            color: #ffffff;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .button:hover {
+            background-color: #d11556;
+        }
+        iframe {
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        footer {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 20px;
+            }
+            header img {
+                height: 50px;
+                margin-top: -10px;
+            }
+            header .logo-container {
+                margin: 0 auto;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .residente-content {
+                padding: 20px;
+            }
+            .residente-content img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="images/LOGOIMP.png" alt="IMP CORE Logo">
+        </div>
+        <nav>
+            <a href="index.html#inicio">Inicio</a>
+            <a href="index.html#eventos">Eventos</a>
+            <a href="index.html#lanzamientos">Lanzamientos</a>
+            <a href="index.html#residentes">Residentes</a>
+            <a href="index.html#contacto">Contacto</a>
+        </nav>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/impcore.cl" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://soundcloud.com/imp-records-820395379" target="_blank">
+                <i class="fab fa-soundcloud"></i>
+            </a>
+            <a href="https://impcore.bandcamp.com" target="_blank">
+                <i class="fab fa-bandcamp"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenido del residente -->
+    <section class="section" style="background-image: url('images/background.jpg'); background-attachment: fixed;">
+        <div class="residente-content">
+            <img src="images/residente3.jpg" alt="Residente 3">
+            <h1>NASAC</h1>
+            <p style="text-align: justify; line-height: 1.6; max-width: 600px; margin: 0 auto 20px;">
+                Nicolás Sanhueza, conocido como Nasac, es un DJ emergente apasionado por el techno. Su viaje comenzó en 2019 como parte del público, y en 2022 decidió dedicarse profesionalmente. En 2023 adquirió su primera controladora y estudió en DJ School, presentando sus primeros sets en The House. Actualmente, es residente en BigBang Label, IMPCORE y Delotrolado Club, explorando géneros como peak time, raw/hypnotic, hardgroove y hard techno. También se dedica a la producción musical, enfocándose en raw techno y hardgroove. Su estilo busca generar una conexión profunda con el público, creando una atmósfera inmersiva a través de sonidos estimulantes. Su objetivo es mantener a la audiencia en sintonía con la música, estableciendo una experiencia de baile única y envolvente.
+            </p>
+            
+            <a href="presskit.pdf" class="button" download>Descargar Presskit</a>
+            
+            <h3>Live en Vivo</h3>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/4EGyOAcQhxY?si=kHG7MZdnG2wZgW5H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+            <h3>Último Set</h3>
+            <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1869560490&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/user-375594295" title="Nasac - Dj" target="_blank" style="color: #cccccc; text-decoration: none;">Nasac - Dj</a> · <a href="https://soundcloud.com/user-375594295/escena-01-nasac" title="Escena #01 - Nasac" target="_blank" style="color: #cccccc; text-decoration: none;">Escena #01 - Nasac</a></div>
+            <div style="margin-top: 30px;">
+                <a href="mailto:impcoreclg@gmail.com" class="button">Booking Nacional</a>
+                <a href="mailto:international@impcore.cl" class="button">Booking Internacional</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 IMP CORE. Todos los derechos reservados.</p>
+        <p>Síguenos en <a href="https://www.instagram.com/impcore.cl" target="_blank">Instagram</a></p>
+    </footer>
+</body>
+</html>
