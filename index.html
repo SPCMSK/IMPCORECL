@@ -229,6 +229,7 @@
             text-align: center; /* Centra el texto */
             padding: 0 20px; /* Añade espacio a los lados */
             word-break: keep-all; /* Evita separar palabras */
+            white-space: nowrap;
         }
         
         @keyframes textGlow {
@@ -582,6 +583,62 @@
                 font-size: 1rem;
             }
         }
+                /* Estilos del botón hamburguesa */
+        .hamburger-btn {
+            display: none; /* Oculto en desktop */
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        
+        .hamburger-line {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--color-light);
+            margin: 5px 0;
+            transition: var(--transition-base);
+        }
+        
+        /* Menú para móviles */
+        @media (max-width: 768px) {
+            .hamburger-btn {
+                display: block; /* Visible solo en móviles */
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease-in-out;
+                z-index: 1000;
+                padding-top: 80px;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .social-icons {
+                margin-top: 2rem;
+            }
+}
     </style>
 </head>
 <body>
@@ -593,6 +650,34 @@
     <!-- Header -->
     <header id="header">
         <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="logo" loading="eager">
+            <!-- Botón hamburguesa (solo visible en móviles) -->
+    <button class="hamburger-btn" aria-label="Menú">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+        <!-- Contenedor del menú (se ocultará en móviles) -->
+    <nav class="nav-menu">
+        <div class="nav-links">
+            <a href="#inicio" class="nav-link">Inicio</a>
+            <a href="#eventos" class="nav-link">Eventos</a>
+            <a href="#lanzamientos" class="nav-link">Lanzamientos</a>
+            <a href="#residentes" class="nav-link">Residentes</a>
+            <a href="#contacto" class="nav-link">Contacto</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/impcore.cl" target="_blank" aria-label="Instagram" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://soundcloud.com/imp-records-820395379" target="_blank" aria-label="SoundCloud" class="social-icon">
+                <i class="fab fa-soundcloud"></i>
+            </a>
+            <a href="https://impcore.bandcamp.com" target="_blank" aria-label="Bandcamp" class="social-icon">
+                <i class="fab fa-bandcamp"></i>
+            </a>
+        </div>
+    </nav>
+</header>
         
         <nav>
             <a href="#inicio" class="nav-link">Inicio</a>
@@ -853,6 +938,23 @@
                 window.addEventListener('load', preloadImages);
             }
         });
+            // Menú hamburguesa
+            const hamburgerBtn = document.querySelector('.hamburger-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            hamburgerBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                
+                // Animación del botón a "X"
+                hamburgerBtn.classList.toggle('active');
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburgerBtn.classList.remove('active');
+                });
     </script>
 </body>
 </html>
