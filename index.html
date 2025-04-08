@@ -224,6 +224,9 @@
             color: var(--color-light);
             text-shadow: var(--shadow-primary);
             animation: textGlow 2s ease-in-out infinite alternate;
+            white-space: nowrap; /* Evita saltos de línea */
+            overflow: hidden; /* Opcional: Oculta texto que desborde */
+            text-overflow: ellipsis;
         }
         
         @keyframes textGlow {
