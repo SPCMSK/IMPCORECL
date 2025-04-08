@@ -972,7 +972,7 @@
         createParticles();
 
         // Esperar a que el DOM esté completamente cargado
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded'), function() {
             // Ocultar intro después de 3.5 segundos
             setTimeout(function() {
                 document.querySelector('.intro-overlay').style.display = 'none';
@@ -987,6 +987,7 @@
                     header.classList.remove('header-scrolled');
                 }
             });
+        }
             
             // Scroll suave para enlaces internos
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1035,25 +1036,7 @@
                     alert('Mensaje enviado con éxito. Nos pondremos en contacto contigo pronto.');
                     contactForm.reset();
                 });
-            }
-            
-            // Precarga de imágenes cuando sea necesario
-            function preloadImages() {
-                const images = [
-                    'img/evento1.jpg',
-                    'img/evento2.jpg',
-                    'img/evento3.jpg',
-                    'img/album2.jpg',
-                    'img/album3.jpg',
-                    'img/residente1.jpeg',
-                    'img/residente2.jpg',
-                    'img/residente3.jpg'
-                ];
-                
-                images.forEach(image => {
-                    const img = new Image();
-                    img.src = image;
-                });
+            }     
     </script>
 </body>
 </html>
