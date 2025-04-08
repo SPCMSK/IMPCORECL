@@ -3,509 +3,849 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IMP CORE - Patrones Mentales Inmersivos en música electrónica">
     <title>IMP CORE - Patrones Mentales Inmersivos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Preload de fuentes y assets críticos -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Audiowide&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style">
+    
+    <!-- Fuentes modernas techno -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Slick Carousel CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    
+    <!-- Preload de imágenes importantes -->
+    <link rel="preload" href="img/LOGOIMP.png" as="image">
+    <link rel="preload" href="img/background.jpg" as="image" media="(min-width: 600px)">
+    
+    <!-- CSS principal (optimizado e inline para primera renderización) -->
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            background-color: #121212;
-            color: #ffffff;
-            scroll-behavior: smooth;
+        /* Variables CSS para colores y estilos */
+        :root {
+            --color-primary: #a50673;
+            --color-secondary: #1ca39e;
+            --color-accent: #026f6e;
+            --color-dark: #121212;
+            --color-darker: #0a0a0a;
+            --color-light: #ffffff;
+            --font-heading: 'Orbitron', 'Audiowide', sans-serif;
+            --font-body: 'Arial', sans-serif;
+            --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-primary: 0 0 10px rgba(233, 30, 99, 0.7);
+            --shadow-secondary: 0 0 10px rgba(0, 240, 255, 0.5);
         }
-        header {
-            background-color: rgba(30, 30, 30, 0.5);
-            transition: background-color 0.3s ease;
-            padding: 10px 20px;
-            width: 100%;
-            height: 80px;
+        
+        /* Reset y estilos base */
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-dark);
+            color: var(--color-light);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Animación de intro */
+        .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-out 3.5s forwards;
+        }
+        
+        .intro-logo {
+            width: 80%;
+            max-width: 600px;
+            animation: 
+                glowPulse 2s ease-in-out infinite alternate,
+                glitchEffect 0.3s infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% { filter: drop-shadow(0 0 5px var(--color-primary)); }
+            50% { filter: drop-shadow(0 0 15px var(--color-secondary)); }
+            100% { filter: drop-shadow(0 0 10px var(--color-accent)); }
+        }
+        
+        @keyframes glitchEffect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+        
+        /* Estructura principal */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            top: 0;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
             z-index: 1000;
+            transition: var(--transition-base);
         }
-        header .logo-container {
-            flex-grow: 1;
-            text-align: center;
-            margin-left: 100px;
-            margin-top: 10px;
+        
+        .header-scrolled {
+            background-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
         }
-        header img {
-            height: 80px;
-            width: auto;
-            transition: opacity 0.5s ease;
+        
+        .logo {
+            height: 60px;
+            transition: var(--transition-base);
         }
+        
         nav {
             display: flex;
-            gap: 15px;
+            gap: 1.5rem;
         }
+        
+        .nav-link {
+            color: var(--color-light);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: var(--transition-base);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transform: translateX(-50%);
+            transition: var(--transition-base);
+        }
+        
+        .nav-link:hover {
+            color: var(--color-primary);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
         .social-icons {
             display: flex;
-            gap: 25px;
+            gap: 1.5rem;
         }
-        .social-icons a {
-            color: #ffffff;
-            font-size: 1.5em;
-            transition: color 0.3s ease;
+        
+        .social-icon {
+            color: var(--color-light);
+            font-size: 1.5rem;
+            transition: var(--transition-base);
         }
-        .social-icons a:hover {
-            color: #e91e63;
+        
+        .social-icon:hover {
+            color: var(--color-primary);
+            transform: translateY(-3px);
         }
-        header.transparent {
-            background-color: rgba(30, 30, 30, 0.5);
-        }
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 1.2em;
-            padding: 10px 15px;
-            background-color: transparent;
-            border: 2px solid transparent;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        nav a:hover {
-            background-color: #e91e63;
-            color: #ffffff;
-            border-color: #e91e63;
-        }
+        
+        /* Hero section */
         .hero {
-            background-image: url('images/background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            position: relative;
             height: 100vh;
-            text-align: center;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
-            padding: 60px 20px;
-            box-sizing: border-box;
+            overflow: hidden;
         }
+        
         .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom, 
+                rgba(0, 0, 0, 0.8) 0%, 
+                rgba(0, 0, 0, 0.5) 50%, 
+                rgba(0, 0, 0, 0.8) 100%
+            );
             z-index: 1;
         }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        .hero h1 {
-            font-size: 3.5em;
-            margin: 0 0 20px 0;
-            color: #ffffff;
-        }
-        .hero p {
-            font-size: 1.2em;
-            margin: 0 0 30px 0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            background-color: #e91e63;
-            border: none;
-            color: #ffffff;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .hero button:hover {
-            background-color: #d11556;
-        }
-        .section {
-            padding: 50px 20px;
-            text-align: center;
-            position: relative;
-        }
-        #eventos, #lanzamientos, #residentes {
-            background-image: url('images/eventos.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            color: #ffffff;
-        }
-        #eventos::before, #lanzamientos::before, #residentes::before {
-            content: '';
+        
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
         }
-        #eventos > *, #lanzamientos > *, #residentes > * {
+        
+        .hero-content {
             position: relative;
             z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
         }
-        .event, .music, .residente {
+        
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            color: var(--color-light);
+            text-shadow: var(--shadow-primary);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px var(--color-primary)); }
+            50% { text-shadow: 0 0 15px var(--color-secondary)); }
+            100% { text-shadow: 0 0 10px var(--color-accent)); }
+        }
+        
+        .hero-text {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--color-primary);
+            color: var(--color-light);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: #c2185b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(233, 30, 99, 0.4);
+        }
+        
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::after {
+            left: 100%;
+        }
+        
+        /* Secciones comunes */
+        .section {
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(
+                to right,
+                var(--color-primary),
+                var(--color-secondary),
+                var(--color-accent)
+            );
+            margin: 1rem auto;
+        }
+        
+        /* Sección de eventos */
+        .events {
+            background: linear-gradient(
+                    rgba(0, 0, 0, 0.8),
+                    rgba(0, 0, 0, 0.8)
+                ),
+                url('img/eventos.png') center/cover fixed;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .event-card {
             background-color: rgba(30, 30, 30, 0.8);
             backdrop-filter: blur(5px);
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition-base);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        .event:hover, .music:hover, .residente:hover {
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(233, 30, 99, 0.3);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition-base);
+        }
+        
+        .event-card:hover .event-image {
             transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1) drop-shadow(0 0 10px var(--color-primary));
         }
-        .event img, .music img, .residente img {
-            max-width: 100%;
-            border-radius: 10px;
+        
+        .event-content {
+            padding: 1.5rem;
         }
-        .event h3, .music h3, .residente h3 {
-            margin-top: 15px;
+        
+        .event-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
         }
-        .button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #e91e63;
-            border: none;
-            color: #ffffff;
-            font-size: 1em;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+        
+        .event-date {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--color-secondary);
         }
-        .button:hover {
-            background-color: #d11556;
+        
+        /* Sección de lanzamientos */
+        .releases {
+            background: linear-gradient(
+                    rgba(0, 0, 0, 0.8),
+                    rgba(0, 0, 0, 0.8)
+                ),
+                url('img/eventos.png') center/cover fixed;
         }
+        
+        .releases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .release-card {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition-base);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .release-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 240, 255, 0.3);
+        }
+        
+        .release-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 0 auto 1rem;
+            transition: var(--transition-base);
+        }
+        
+        .release-card:hover .release-image {
+            transform: scale(1.05) rotate(2deg);
+            filter: brightness(1.1) drop-shadow(0 0 10px var(--color-secondary));
+        }
+        
+        .release-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-light);
+        }
+        
+        .release-artist {
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Sección de residentes */
+        .residents {
+            background: linear-gradient(
+                    rgba(0, 0, 0, 0.8),
+                    rgba(0, 0, 0, 0.8)
+                ),
+                url('img/eventos.png') center/cover fixed;
+        }
+        
+        .residents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .resident-card {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: var(--transition-base);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .resident-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(156, 39, 176, 0.3);
+        }
+        
+        .resident-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition-base);
+        }
+        
+        .resident-card:hover .resident-image {
+            transform: scale(1.05);
+            filter: brightness(1.1) drop-shadow(0 0 10px var(--color-accent));
+        }
+        
+        .resident-name {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            padding: 1rem;
+            color: var(--color-accent);
+        }
+        
+        /* Footer */
         footer {
-            background-color: #1e1e1e;
-            padding: 20px;
+            background-color: var(--color-darker);
+            padding: 2rem;
             text-align: center;
         }
-        footer p {
-            margin: 5px 0;
+        
+        .footer-text {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.7);
         }
-        footer a {
-            color: #e91e63;
+        
+        .footer-link {
+            color: var(--color-primary);
             text-decoration: none;
+            transition: var(--transition-base);
         }
-        .music img {
-            max-width: 100%;
-            height: auto;
-            width: 150px;
-            margin: 0 auto;
-            display: block;
+        
+        .footer-link:hover {
+            color: var(--color-secondary);
+            text-shadow: 0 0 5px var(--color-secondary);
         }
-        /* Estilos para los botones del carrusel */
-        .slick-prev, .slick-next {
-            width: 40px !important;
-            height: 40px !important;
-            z-index: 1;
+        
+        /* Efectos de scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        .slick-prev {
-            left: 25px !important;
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .slick-next {
-            right: 25px !important;
-        }
-        .slick-prev:before, .slick-next:before {
-            font-size: 40px !important;
-            color: #e91e63 !important;
-        }
-        /* Aumentar el tamaño de los títulos de las secciones */
-        .section h2 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            color: #e91e63;
-        }
-        @media (max-width: 768px) {
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
             header {
                 flex-direction: column;
-                height: auto;
-                padding: 20px;
+                padding: 1rem;
             }
-            header img {
-                height: 50px;
-                margin-top: -10px;
+            
+            .logo {
+                margin-bottom: 1rem;
             }
-            header .logo-container {
-                margin: 0 auto;
-            }
+            
             nav {
+                margin: 1rem 0;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 10px;
             }
-            .hero h1 {
-                font-size: 2.5em;
-            }
-            .hero p {
-                font-size: 1em;
-            }
-            .hero button {
-                padding: 10px 20px;
-                font-size: 0.9em;
-            }
-            .event, .music, .residente {
-                padding: 15px;
-            }
-            .event img, .music img, .residente img {
-                width: 100%;
-                height: auto;
+            
+            .social-icons {
+                margin-top: 1rem;
             }
         }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-text {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 3rem 1.5rem;
+            }
+            
+            .events-grid,
+            .releases-grid,
+            .residents-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         @media (max-width: 480px) {
-            header {
-                padding: 10px;
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem;
             }
-            nav a {
-                font-size: 1em;
-                padding: 8px 10px;
+            
+            .social-icon {
+                font-size: 1.2rem;
             }
-            .hero h1 {
-                font-size: 2em;
+            
+            .hero-title {
+                font-size: 2rem;
             }
-            .hero p {
-                font-size: 0.9em;
+            
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
             }
-        }
-        /* Estilos para la sección de residentes */
-        .residentes-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .residente {
-            width: 200px;
-            text-align: center;
-        }
-        .residente img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-        .residente h3 {
-            margin-top: 15px;
-            font-size: 1.2em;
-            color: #e91e63;
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="images/LOGOIMP.png" alt="IMP CORE Logo">
-        </div>
+    <!-- Intro animada -->
+    <div class="intro-overlay">
+        <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="intro-logo" loading="eager">
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="logo" loading="eager">
+        
         <nav>
-            <a href="#inicio">Inicio</a>
-            <a href="#eventos">Eventos</a>
-            <a href="#lanzamientos">Lanzamientos</a>
-            <a href="#residentes">Residentes</a>
-            <a href="#contacto">Contacto</a>
+            <a href="#inicio" class="nav-link">Inicio</a>
+            <a href="#eventos" class="nav-link">Eventos</a>
+            <a href="#lanzamientos" class="nav-link">Lanzamientos</a>
+            <a href="#residentes" class="nav-link">Residentes</a>
+            <a href="#contacto" class="nav-link">Contacto</a>
         </nav>
+        
         <div class="social-icons">
-            <a href="https://www.instagram.com/impcore.cl" target="_blank">
+            <a href="https://www.instagram.com/impcore.cl" target="_blank" aria-label="Instagram" class="social-icon">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://soundcloud.com/imp-records-820395379" target="_blank">
+            <a href="https://soundcloud.com/imp-records-820395379" target="_blank" aria-label="SoundCloud" class="social-icon">
                 <i class="fab fa-soundcloud"></i>
             </a>
-            <a href="https://impcore.bandcamp.com" target="_blank">
+            <a href="https://impcore.bandcamp.com" target="_blank" aria-label="Bandcamp" class="social-icon">
                 <i class="fab fa-bandcamp"></i>
             </a>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <section class="hero" id="inicio">
+        <img src="img/background.jpg" alt="IMP CORE Background" class="hero-bg" loading="lazy">
+        
         <div class="hero-content">
-            <h1>Bienvenido a IMP CORE</h1>
-            <p>Explora nuestros patrones mentales inmersivos y sumérgete en el mundo de la música electrónica.</p>
-            <button onclick="location.href='#eventos'">Explora Nuestros Eventos</button>
+            <h1 class="hero-title fade-in">Bienvenido a IMP CORE</h1>
+            <p class="hero-text fade-in">Explora nuestros patrones mentales inmersivos y sumérgete en el mundo de la música electrónica.</p>
+            <a href="#eventos" class="cta-button fade-in">Explora Nuestros Eventos</a>
         </div>
     </section>
 
-    <section class="section" id="eventos">
-        <h2>Próximos Eventos</h2>
-        <div class="event-carousel">
-            <div class="event">
-                <img src="ruta_a_imagen_evento1.jpg" alt="Evento 1">
-                <h3>Concierto Electrónico</h3>
-                <p>Fecha: 15 de Enero, 2024<br>Lugar: Valparaíso, Chile</p>
-                <button class="button" onclick="location.href='https://link_a_ticket_evento1.com'">Comprar Ticket</button>
+    <!-- Eventos Section -->
+    <section class="section events" id="eventos">
+        <h2 class="section-title fade-in">Próximos Eventos</h2>
+        
+        <div class="events-grid">
+            <!-- Evento 1 -->
+            <div class="event-card fade-in">
+                <img src="img/evento1.jpg" alt="Evento 1" class="event-image" loading="lazy">
+                <div class="event-content">
+                    <h3 class="event-title">Concierto Electrónico</h3>
+                    <span class="event-date">Fecha: 15 de Enero, 2024<br>Lugar: Valparaíso, Chile</span>
+                    <button class="cta-button" onclick="window.open('https://link_a_ticket_evento1.com', '_blank')">Comprar Ticket</button>
+                </div>
             </div>
-            <div class="event">
-                <img src="ruta_a_imagen_evento2.jpg" alt="Evento 2">
-                <h3>Festival de Rock</h3>
-                <p>Fecha: 22 de Enero, 2024<br>Lugar: Santiago, Chile</p>
-                <button class="button" onclick="location.href='https://link_a_ticket_evento2.com'">Comprar Ticket</button>
+            
+            <!-- Evento 2 -->
+            <div class="event-card fade-in">
+                <img src="img/evento2.jpg" alt="Evento 2" class="event-image" loading="lazy">
+                <div class="event-content">
+                    <h3 class="event-title">Festival de Rock</h3>
+                    <span class="event-date">Fecha: 22 de Enero, 2024<br>Lugar: Santiago, Chile</span>
+                    <button class="cta-button" onclick="window.open('https://link_a_ticket_evento2.com', '_blank')">Comprar Ticket</button>
+                </div>
             </div>
-            <div class="event">
-                <img src="ruta_a_imagen_evento3.jpg" alt="Evento 3">
-                <h3>Teatro Musical</h3>
-                <p>Fecha: 30 de Enero, 2024<br>Lugar: Viña del Mar, Chile</p>
-                <button class="button" onclick="location.href='https://link_a_ticket_evento3.com'">Comprar Ticket</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="lanzamientos">
-        <h2>Lanzamientos</h2>
-        <div class="music-carousel">
-            <div class="music">
-                <img src="images/impxwoo.png" alt="Álbum 1">
-                <h3>IMPXWOO Sessions</h3>
-                <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/123456789&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-                <button class="button" onclick="window.open('https://soundcloud.com/imp-records-820395379/sets/imp-x-woo?si=6b939c67c1db4f93a6f4cbbe44579b69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">Escúchalos Aquí</button>
-            </div>
-            <div class="music">
-                <img src="ruta_a_imagen_album2.jpg" alt="Álbum 2">
-                <h3>Beat Experimental</h3>
-                <p>Artista: Producer X<br>Precio: $8</p>
-                <button class="button" onclick="location.href='https://link_a_compra_album2.com'">Comprar Álbum</button>
-            </div>
-            <div class="music">
-                <img src="ruta_a_imagen_album3.jpg" alt="Álbum 3">
-                <h3>Mix Deep House</h3>
-                <p>Artista: DJ Deep<br>Precio: $12</p>
-                <button class="button" onclick="location.href='https://link_a_compra_album3.com'">Comprar Álbum</button>
+            
+            <!-- Evento 3 -->
+            <div class="event-card fade-in">
+                <img src="img/evento3.jpg" alt="Evento 3" class="event-image" loading="lazy">
+                <div class="event-content">
+                    <h3 class="event-title">Teatro Musical</h3>
+                    <span class="event-date">Fecha: 30 de Enero, 2024<br>Lugar: Viña del Mar, Chile</span>
+                    <button class="cta-button" onclick="window.open('https://link_a_ticket_evento3.com', '_blank')">Comprar Ticket</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="section" id="residentes">
-        <h2>Residentes</h2>
-        <div class="residentes-list">
-            <div class="residente">
+    <!-- Lanzamientos Section -->
+    <section class="section releases" id="lanzamientos">
+        <h2 class="section-title fade-in">Lanzamientos</h2>
+        
+        <div class="releases-grid">
+            <!-- Lanzamiento 1 -->
+            <div class="release-card fade-in">
+                <img src="img/impxwoo.png" alt="IMPXWOO Sessions" class="release-image" loading="lazy">
+                <h3 class="release-title">IMPXWOO Sessions</h3>
+                <p class="release-artist">IMP CORE & WOO</p>
+                <button class="cta-button" onclick="window.open('https://soundcloud.com/imp-records-820395379/sets/imp-x-woo?si=6b939c67c1db4f93a6f4cbbe44579b69&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">Escúchalos Aquí</button>
+            </div>
+            
+            <!-- Lanzamiento 2 -->
+            <div class="release-card fade-in">
+                <img src="img/album2.jpg" alt="SUMERGIDOS V.A" class="release-image" loading="lazy">
+                <h3 class="release-title">SUMERGIDOS V.A</h3>
+                <p class="release-artist">Varios Artistas</p>
+                <button class="cta-button" onclick="window.open('https://impcore.bandcamp.com/album/sumergidos-v-a', '_blank')">Comprar Álbum</button>
+            </div>
+            
+            <!-- Lanzamiento 3 -->
+            <div class="release-card fade-in">
+                <img src="img/album3.jpg" alt="IMMERSIVE COLLECTIONS" class="release-image" loading="lazy">
+                <h3 class="release-title">IMMERSIVE COLLECTIONS</h3>
+                <p class="release-artist">VARIOS ARTISTAS</p>
+
+                <button class="cta-button" onclick="window.open('https://soundcloud.com/imp-records-820395379/sets/immersive-collection?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing', '_blank')">Escúchalos Aquí</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Residentes Section -->
+    <section class="section residents" id="residentes">
+        <h2 class="section-title fade-in">Residentes</h2>
+        
+        <div class="residents-grid">
+            <!-- Residente 1 -->
+            <div class="resident-card fade-in">
                 <a href="residente1.html">
-                    <img src="images/residente1.jpeg" alt="Residente 1">
-                    <h3>SPCMSK</h3>
+                    <img src="img/residente1.jpeg" alt="SPCMSK" class="resident-image" loading="lazy">
+                    <h3 class="resident-name">SPCMSK</h3>
                 </a>
             </div>
-            <div class="residente">
+            
+            <!-- Residente 2 -->
+            <div class="resident-card fade-in">
                 <a href="residente2.html">
-                    <img src="images/residente2.jpg" alt="Residente 2">
-                    <h3>CINDER</h3>
+                    <img src="img/residente2.jpg" alt="CINDER" class="resident-image" loading="lazy">
+                    <h3 class="resident-name">CINDER</h3>
                 </a>
             </div>
-            <div class="residente">
+            
+            <!-- Residente 3 -->
+            <div class="resident-card fade-in">
                 <a href="residente3.html">
-                    <img src="images/residente3.jpg" alt="Residente 3">
-                    <h3>NASAC</h3>
+                    <img src="img/residente3.jpg" alt="NASAC" class="resident-image" loading="lazy">
+                    <h3 class="resident-name">NASAC</h3>
                 </a>
             </div>
-            <!-- Agrega más residentes según sea necesario -->
         </div>
     </section>
 
+    <!-- Contacto Section -->
+    <section class="section" id="contacto">
+        <h2 class="section-title fade-in">Contacto</h2>
+        
+        <div class="contact-form fade-in" style="max-width: 600px; margin: 0 auto;">
+            <form id="contactForm">
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Nombre</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Email</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;"></textarea>
+                </div>
+                
+                <button type="submit" class="cta-button" style="width: 100%;">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 IMP CORE. Todos los derechos reservados.</p>
-        <p>Síguenos en <a href="https://www.instagram.com/impcore.cl" target="_blank">Instagram</a></p>
+        <p class="footer-text">&copy; 2024 IMP CORE. Todos los derechos reservados.</p>
+        <p class="footer-text">Síguenos en <a href="https://www.instagram.com/impcore.cl" target="_blank" class="footer-link">Instagram</a></p>
     </footer>
 
-    <!-- jQuery y Slick Carousel JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <!-- JavaScript optimizado -->
     <script>
-        // Inicializar el carrusel de eventos
-        $(document).ready(function(){
-            $('.event-carousel').slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-        });
-
-        // Inicializar el carrusel de lanzamientos
-        $(document).ready(function(){
-            $('.music-carousel').slick({
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-        });
-
-        // Efecto de desvanecimiento del header al hacer scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            const logo = document.querySelector('header img');
-            const scrollThreshold = 100;
-
-            if (window.scrollY > scrollThreshold) {
-                header.classList.add('transparent');
-                logo.style.opacity = '0';
-            } else {
-                header.classList.remove('transparent');
-                logo.style.opacity = '1';
-            }
-        });
-
-        // Desplazamiento suave al hacer clic en enlaces
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ocultar intro después de 3.5 segundos
+            setTimeout(function() {
+                document.querySelector('.intro-overlay').style.display = 'none';
+            }, 3500);
+            
+            // Efecto de scroll en el header
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
                 }
             });
+            
+            // Scroll suave para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Observador de intersección para animaciones al hacer scroll
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const fadeObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            fadeElements.forEach(element => {
+                fadeObserver.observe(element);
+            });
+            
+            // Manejar el formulario de contacto
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Aquí iría la lógica para enviar el formulario
+                    // Por ahora solo mostramos un mensaje de éxito
+                    alert('Mensaje enviado con éxito. Nos pondremos en contacto contigo pronto.');
+                    contactForm.reset();
+                });
+            }
+            
+            // Precarga de imágenes cuando sea necesario
+            function preloadImages() {
+                const images = [
+                    'img/evento1.jpg',
+                    'img/evento2.jpg',
+                    'img/evento3.jpg',
+                    'img/album2.jpg',
+                    'img/album3.jpg',
+                    'img/residente1.jpeg',
+                    'img/residente2.jpg',
+                    'img/residente3.jpg'
+                ];
+                
+                images.forEach(image => {
+                    const img = new Image();
+                    img.src = image;
+                });
+            }
+            
+            // Precargar imágenes cuando la red esté inactiva
+            if ('connection' in navigator && navigator.connection.saveData) {
+                // No precargar si el usuario tiene ahorro de datos activado
+            } else {
+                // Esperar a que la página esté cargada para precargar imágenes
+                window.addEventListener('load', preloadImages);
+            }
         });
     </script>
 </body>
