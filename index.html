@@ -971,39 +971,46 @@
         }
         createParticles();
 
-        // Esperar a que el DOM esté completamente cargado
-            document.addEventListener('DOMContentLoaded', function() {  // <-- Paréntesis corregido
-        // Ocultar intro después de 3.5 segundos
-        setTimeout(function() {
-            document.querySelector('.intro-overlay').style.display = 'none';
-        }, 3500);
-        
-        // Efecto de scroll en el header
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 100) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
+        document.addEventListener('DOMContentLoaded', function() {  // <- Síntaxis corregida
+    // Ocultar intro después de 3.5 segundos
+    setTimeout(function() {
+        document.querySelector('.intro-overlay').style.display = 'none';
+    }, 3500);
+    
+    // Efecto de scroll en el header
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            header.classList.add('header-scrolled');
+        } else {
+            header.classList.remove('header-scrolled');
+        }
+    });
+
+    // Scroll suave y observador de intersección
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetElement = document.querySelector(this.getAttribute('href'));
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
         });
     });
-            
-            // Scroll suave para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+});
             
             // Observador de intersección para animaciones al hacer scroll
             const fadeElements = document.querySelectorAll('.fade-in');
