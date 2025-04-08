@@ -94,6 +94,60 @@ Codigo: <!DOCTYPE html>
         @keyframes fadeOut {
             to { opacity: 0; visibility: hidden; }
         }
+        /* Efecto Parallax */
+        .parallax-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--color-primary) 20%, transparent 80%);
+            animation: particle-drift 20s infinite linear;
+        }
+
+        /* Radio Section */
+        .radio-section {
+            position: relative;
+            padding: 4rem 2rem;
+            background: var(--color-darker);
+        }
+
+        .cyberwave-visualizer {
+            height: 100px;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-pulse {
+            animation: neonPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            from { box-shadow: 0 0 5px var(--color-primary); }
+            to { box-shadow: 0 0 20px var(--color-secondary); }
+        }
+        @keyframes glowPulse {
+            0% { filter: drop-shadow(0 0 5px var(--color-primary)); }
+            50% { filter: drop-shadow(0 0 15px var(--color-secondary)); }
+            100% { filter: drop-shadow(0 0 10px var(--color-accent)); }
+        }
+        
+        @keyframes glitchEffect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
         
         /* Estructura principal */
         header {
@@ -621,6 +675,16 @@ Codigo: <!DOCTYPE html>
             <a href="#eventos" class="cta-button fade-in">Explora Nuestros Eventos</a>
         </div>
     </section>
+    <!-- Sección Radio -->
+    <section class="radio-section">
+        <div class="cyberwave-visualizer" id="visualizer"></div>
+        <div class="radio-controls">
+            <button class="cta-button neon-pulse" id="radioToggle">
+                <span class="glow-text">▶ LIVE</span>
+            </button>
+        </div>
+        <audio id="streamPlayer" hidden></audio>
+    </section>
 
     <!-- Eventos Section -->
     <section class="section events" id="eventos">
@@ -848,6 +912,40 @@ Codigo: <!DOCTYPE html>
                 // Esperar a que la página esté cargada para precargar imágenes
                 window.addEventListener('load', preloadImages);
             }
+        // Control de Radio
+        const radioToggle = document.getElementById('radioToggle');
+        const player = document.getElementById('streamPlayer');
+        player.src = 'TU_STREAM_URL_AQUI';
+
+        radioToggle.addEventListener('click', () => {
+            if (player.paused) {
+                player.play();
+                radioToggle.innerHTML = '<span class="glow-text">⏹ LIVE</span>';
+                radioToggle.classList.add('playing');
+            } else {
+                player.pause();
+                radioToggle.innerHTML = '<span class="glow-text">▶ LIVE</span>';
+                radioToggle.classList.remove('playing');
+            }
+        });
+
+        // Efecto Parallax
+        function createParticles() {
+            const container = document.querySelector('.parallax-container');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${Math.random() * 4 + 2}px;
+                    height: ${Math.random() * 4 + 2}px;
+                    animation-duration: ${Math.random() * 10 + 10}s;
+                `;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
         });
     </script>
 </body>
