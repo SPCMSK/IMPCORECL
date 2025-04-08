@@ -224,7 +224,11 @@
             color: var(--color-light);
             text-shadow: var(--shadow-primary);
             animation: textGlow 2s ease-in-out infinite alternate;
-            white-space: nowrap; /* Evita saltos de línea */
+            display: inline-block; /* Permite que el texto se comporte como bloque */
+            max-width: 100%; /* Evita desbordamiento */
+            text-align: center; /* Centra el texto */
+            padding: 0 20px; /* Añade espacio a los lados */
+            word-break: keep-all; /* Evita separar palabras */
         }
         
         @keyframes textGlow {
