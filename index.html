@@ -972,22 +972,22 @@
         createParticles();
 
         // Esperar a que el DOM esté completamente cargado
-        document.addEventListener('DOMContentLoaded'), function() {
-            // Ocultar intro después de 3.5 segundos
-            setTimeout(function() {
-                document.querySelector('.intro-overlay').style.display = 'none';
-            }, 3500);
-            
-            // Efecto de scroll en el header
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 100) {
-                    header.classList.add('header-scrolled');
-                } else {
-                    header.classList.remove('header-scrolled');
-                }
-            });
-        }
+            document.addEventListener('DOMContentLoaded', function() {  // <-- Paréntesis corregido
+        // Ocultar intro después de 3.5 segundos
+        setTimeout(function() {
+            document.querySelector('.intro-overlay').style.display = 'none';
+        }, 3500);
+        
+        // Efecto de scroll en el header
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+    });
             
             // Scroll suave para enlaces internos
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
