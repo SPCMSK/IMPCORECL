@@ -1,23 +1,26 @@
-<!DOCTYPE html>
+Codigo: <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="IMP CORE">
-    <link rel="icon" href="img/logoimp2.png" type="image/png">
-    <title>IMP CORE</title>
+    <meta name="description" content="IMP CORE - Patrones Mentales Inmersivos en música electrónica">
+    <title>IMP CORE - Patrones Mentales Inmersivos</title>
     
-    <!-- Preload de recursos -->
+    <!-- Preload de fuentes y assets críticos -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Audiowide&display=swap" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style">
-    <link rel="preload" href="img/LOGOIMP.png" as="image">
-    <link rel="preload" href="img/background.jpg" as="image" media="(min-width: 600px)">
     
-    <!-- Fuentes -->
+    <!-- Fuentes modernas techno -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Audiowide&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
+    <!-- Preload de imágenes importantes -->
+    <link rel="preload" href="img/LOGOIMP.png" as="image">
+    <link rel="preload" href="img/background.jpg" as="image" media="(min-width: 600px)">
+    
+    <!-- CSS principal (optimizado e inline para primera renderización) -->
     <style>
+        /* Variables CSS para colores y estilos */
         :root {
             --color-primary: #a50673;
             --color-secondary: #1ca39e;
@@ -32,6 +35,7 @@
             --shadow-secondary: 0 0 10px rgba(0, 240, 255, 0.5);
         }
         
+        /* Reset y estilos base */
         * {
             margin: 0;
             padding: 0;
@@ -46,28 +50,22 @@
             overflow-x: hidden;
             line-height: 1.6;
         }
-
-        /* Animaciones corregidas */
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 5px var(--color-primary); }
-            50% { text-shadow: 0 0 15px var(--color-secondary); }
-            100% { text-shadow: 0 0 10px var(--color-accent); }
-        }
-
-/* ANIMACIÓN INTRO MEJORADA */
+        
+        /* Animación de intro */
         .intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-darker);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
             animation: fadeOut 0.5s ease-out 3.5s forwards;
-            pointer-events: none; /* Permite interacción con contenido subyacente */
         }
         
-        @keyframes fadeOut {
-            to { 
-                opacity: 0;
-                visibility: hidden;
-                display: none !important; /* Fuerza la desaparición final */
-            }
-        }
-
         .intro-logo {
             width: 80%;
             max-width: 600px;
@@ -75,43 +73,7 @@
                 glowPulse 2s ease-in-out infinite alternate,
                 glitchEffect 0.3s infinite alternate;
         }
-
-        /* Efecto Parallax */
-        .parallax-container {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--color-primary) 20%, transparent 80%);
-            animation: particle-drift 20s infinite linear;
-        }
-
-        /* Radio Section */
-        .radio-section {
-            position: relative;
-            padding: 4rem 2rem;
-            background: var(--color-darker);
-        }
-
-        .cyberwave-visualizer {
-            height: 100px;
-            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .neon-pulse {
-            animation: neonPulse 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes neonPulse {
-            from { box-shadow: 0 0 5px var(--color-primary); }
-            to { box-shadow: 0 0 20px var(--color-secondary); }
-        }
+        
         @keyframes glowPulse {
             0% { filter: drop-shadow(0 0 5px var(--color-primary)); }
             50% { filter: drop-shadow(0 0 15px var(--color-secondary)); }
@@ -261,15 +223,13 @@
             color: var(--color-light);
             text-shadow: var(--shadow-primary);
             animation: textGlow 2s ease-in-out infinite alternate;
-            display: inline-block; /* Permite que el texto se comporte como bloque */
-            max-width: 100%; /* Evita desbordamiento */
-            text-align: center; /* Centra el texto */
-            padding: 0 20px; /* Añade espacio a los lados */
-            word-break: keep-all; /* Evita separar palabras */
-            white-space: nowrap;
         }
         
-        
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px var(--color-primary)); }
+            50% { text-shadow: 0 0 15px var(--color-secondary)); }
+            100% { text-shadow: 0 0 10px var(--color-accent)); }
+        }
         
         .hero-text {
             font-size: clamp(1rem, 2vw, 1.2rem);
@@ -616,117 +576,10 @@
                 font-size: 1rem;
             }
         }
-    /* ... (tus estilos existentes) ... */
-
-    /* Menú hamburguesa - solo visible en móviles */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--color-light);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            z-index: 1001;
-        }
-    
-        /* Estilos para móviles */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-    
-            nav {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background-color: var(--color-darker);
-                flex-direction: column;
-                padding: 5rem 1rem 1rem;
-                transition: var(--transition-base);
-                z-index: 1000;
-            }
-    
-            nav.active {
-                left: 0;
-            }
-    
-            .nav-link {
-                padding: 1rem;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-            }
-    
-            .social-icons {
-                margin-top: auto;
-                padding-top: 1rem;
-                border-top: 1px solid rgba(255,255,255,0.1);
-            }
-    
-            /* Asegurar que el header tenga altura fija en móviles */
-            header {
-                height: 60px;
-                justify-content: space-between;
-                flex-direction: row;
-                padding: 0 1rem;
-            }
-    
-            .logo {
-                height: 40px;
-                margin-bottom: 0;
-            }
-        }
-
-        /* Overlay para cuando el menú está abierto */
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-base);
-        }
-    
-        .menu-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Resto de estilos originales... */
-
-        /* Media Queries */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-                z-index: 1001;
-            }
-            
-            nav {
-                position: fixed;
-                top: 0;
-                left: -100%;
-                width: 80%;
-                height: 100vh;
-                background: var(--color-darker);
-                padding-top: 4rem;
-                transition: var(--transition-base);
-            }
-            
-            nav.active {
-                left: 0;
-                box-shadow: 4px 0 15px rgba(0,0,0,0.3);
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Intro Animada -->
+    <!-- Intro animada -->
     <div class="intro-overlay">
         <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="intro-logo" loading="eager">
     </div>
@@ -734,20 +587,26 @@
     <!-- Header -->
     <header id="header">
         <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="logo" loading="eager">
-        <button class="menu-toggle" aria-label="Menú"><i class="fas fa-bars"></i></button>
+        
         <nav>
             <a href="#inicio" class="nav-link">Inicio</a>
             <a href="#eventos" class="nav-link">Eventos</a>
             <a href="#lanzamientos" class="nav-link">Lanzamientos</a>
             <a href="#residentes" class="nav-link">Residentes</a>
             <a href="#contacto" class="nav-link">Contacto</a>
-            <div class="social-icons">
-                <a href="https://www.instagram.com/impcore.cl" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="https://soundcloud.com/imp-records-820395379" target="_blank" class="social-icon"><i class="fab fa-soundcloud"></i></a>
-                <a href="https://impcore.bandcamp.com" target="_blank" class="social-icon"><i class="fab fa-bandcamp"></i></a>
-            </div>
         </nav>
-        <div class="menu-overlay"></div>
+        
+        <div class="social-icons">
+            <a href="https://www.instagram.com/impcore.cl" target="_blank" aria-label="Instagram" class="social-icon">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://soundcloud.com/imp-records-820395379" target="_blank" aria-label="SoundCloud" class="social-icon">
+                <i class="fab fa-soundcloud"></i>
+            </a>
+            <a href="https://impcore.bandcamp.com" target="_blank" aria-label="Bandcamp" class="social-icon">
+                <i class="fab fa-bandcamp"></i>
+            </a>
+        </div>
     </header>
 
     <!-- Hero Section -->
@@ -755,23 +614,11 @@
         <img src="img/background.jpg" alt="IMP CORE Background" class="hero-bg" loading="lazy">
         
         <div class="hero-content">
-            <h1 class="hero-title fade-in">IMMERSIVE MENTAL PATTERNS</h1>
-            <p class="hero-text fade-in">Explora nuestros patrones mentales e inmersivos y sumérgete en el mundo de la música techno.</p>
+            <h1 class="hero-title fade-in">Bienvenido a IMP CORE</h1>
+            <p class="hero-text fade-in">Explora nuestros patrones mentales inmersivos y sumérgete en el mundo de la música electrónica.</p>
             <a href="#eventos" class="cta-button fade-in">Explora Nuestros Eventos</a>
         </div>
     </section>
-
-        <!-- Sección Radio -->
-    <section class="radio-section">
-        <div class="cyberwave-visualizer" id="visualizer"></div>
-        <div class="radio-controls">
-            <button class="cta-button neon-pulse" id="radioToggle">
-                <span class="glow-text">▶ LIVE</span>
-            </button>
-        </div>
-        <audio id="streamPlayer" hidden></audio>
-    </section>
-
 
     <!-- Eventos Section -->
     <section class="section events" id="eventos">
@@ -905,109 +752,40 @@
         <p class="footer-text">Síguenos en <a href="https://www.instagram.com/impcore.cl" target="_blank" class="footer-link">Instagram</a></p>
     </footer>
 
+    <!-- JavaScript optimizado -->
     <script>
-        // Menú Hamburguesa
-        const menuToggle = document.querySelector('.menu-toggle');
-        const nav = document.querySelector('nav');
-        const menuOverlay = document.querySelector('.menu-overlay');
-
-        const toggleMenu = () => {
-            nav.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-            menuToggle.innerHTML = nav.classList.contains('active') ? '✕' : '☰';
-        };
-
-        menuToggle.addEventListener('click', toggleMenu);
-        menuOverlay.addEventListener('click', toggleMenu);
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                nav.classList.remove('active');
-                menuOverlay.classList.remove('active');
-            }
-        });
-
-        // Precarga de imágenes
-        function preloadImages() {
-            const images = [
-                'img/evento1.jpg', 'img/evento2.jpg', 'img/evento3.jpg',
-                'img/album2.jpg', 'img/album3.jpg', 'img/residente1.jpeg',
-                'img/residente2.jpg', 'img/residente3.jpg'
-            ];
-            images.forEach(img => new Image().src = img);
-        }
-        preloadImages();
-
-        // Control de Radio
-        const radioToggle = document.getElementById('radioToggle');
-        const player = document.getElementById('streamPlayer');
-        player.src = 'TU_STREAM_URL_AQUI';
-
-        radioToggle.addEventListener('click', () => {
-            if (player.paused) {
-                player.play();
-                radioToggle.innerHTML = '<span class="glow-text">⏹ LIVE</span>';
-                radioToggle.classList.add('playing');
-            } else {
-                player.pause();
-                radioToggle.innerHTML = '<span class="glow-text">▶ LIVE</span>';
-                radioToggle.classList.remove('playing');
-            }
-        });
-
-        // Efecto Parallax
-        function createParticles() {
-            const container = document.querySelector('.parallax-container');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.cssText = `
-                    left: ${Math.random() * 100}%;
-                    top: ${Math.random() * 100}%;
-                    width: ${Math.random() * 4 + 2}px;
-                    height: ${Math.random() * 4 + 2}px;
-                    animation-duration: ${Math.random() * 10 + 10}s;
-                `;
-                container.appendChild(particle);
-            }
-        }
-        createParticles();
-
-        document.addEventListener('DOMContentLoaded', function() {  // <- Síntaxis corregida
-    
-    // Efecto de scroll en el header
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.classList.add('header-scrolled');
-        } else {
-            header.classList.remove('header-scrolled');
-        }
-    });
-
-    // Scroll suave y observador de intersección
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetElement = document.querySelector(this.getAttribute('href'));
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 80,
-                    behavior: 'smooth'
+        // Esperar a que el DOM esté completamente cargado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ocultar intro después de 3.5 segundos
+            setTimeout(function() {
+                document.querySelector('.intro-overlay').style.display = 'none';
+            }, 3500);
+            
+            // Efecto de scroll en el header
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+            });
+            
+            // Scroll suave para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
-            }
-        });
-    });
-
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
-});
+            });
             
             // Observador de intersección para animaciones al hacer scroll
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -1040,7 +818,35 @@
                     alert('Mensaje enviado con éxito. Nos pondremos en contacto contigo pronto.');
                     contactForm.reset();
                 });
-            }     
+            }
+            
+            // Precarga de imágenes cuando sea necesario
+            function preloadImages() {
+                const images = [
+                    'img/evento1.jpg',
+                    'img/evento2.jpg',
+                    'img/evento3.jpg',
+                    'img/album2.jpg',
+                    'img/album3.jpg',
+                    'img/residente1.jpeg',
+                    'img/residente2.jpg',
+                    'img/residente3.jpg'
+                ];
+                
+                images.forEach(image => {
+                    const img = new Image();
+                    img.src = image;
+                });
+            }
+            
+            // Precargar imágenes cuando la red esté inactiva
+            if ('connection' in navigator && navigator.connection.saveData) {
+                // No precargar si el usuario tiene ahorro de datos activado
+            } else {
+                // Esperar a que la página esté cargada para precargar imágenes
+                window.addEventListener('load', preloadImages);
+            }
+        });
     </script>
 </body>
 </html>
