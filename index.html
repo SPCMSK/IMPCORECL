@@ -583,6 +583,87 @@
                 font-size: 1rem;
             }
         }
+    /* ... (tus estilos existentes) ... */
+
+    /* Menú hamburguesa - solo visible en móviles */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+        }
+    
+        /* Estilos para móviles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+    
+            nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--color-darker);
+                flex-direction: column;
+                padding: 5rem 1rem 1rem;
+                transition: var(--transition-base);
+                z-index: 1000;
+            }
+    
+            nav.active {
+                left: 0;
+            }
+    
+            .nav-link {
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+    
+            .social-icons {
+                margin-top: auto;
+                padding-top: 1rem;
+                border-top: 1px solid rgba(255,255,255,0.1);
+            }
+    
+            /* Asegurar que el header tenga altura fija en móviles */
+            header {
+                height: 60px;
+                justify-content: space-between;
+                flex-direction: row;
+                padding: 0 1rem;
+            }
+    
+            .logo {
+                height: 40px;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Overlay para cuando el menú está abierto */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-base);
+        }
+    
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
 <body>
@@ -593,14 +674,17 @@
 
     <!-- Header -->
     <header id="header">
-        <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="logo" loading="eager">  
+        <img src="img/LOGOIMP.png" alt="IMP CORE Logo" class="logo" loading="eager"> 
+        <button class="menu-toggle" aria-label="Menú">
+            <i class="fas fa-bars"></i>
+        </button>
         <nav>
             <a href="#inicio" class="nav-link">Inicio</a>
             <a href="#eventos" class="nav-link">Eventos</a>
             <a href="#lanzamientos" class="nav-link">Lanzamientos</a>
             <a href="#residentes" class="nav-link">Residentes</a>
             <a href="#contacto" class="nav-link">Contacto</a>
-        </nav>
+        
         
         <div class="social-icons">
             <a href="https://www.instagram.com/impcore.cl" target="_blank" aria-label="Instagram" class="social-icon">
@@ -612,6 +696,9 @@
             <a href="https://impcore.bandcamp.com" target="_blank" aria-label="Bandcamp" class="social-icon">
                 <i class="fab fa-bandcamp"></i>
             </a>
+        </div>
+        </nav>
+        <div class="menu-overlay">
         </div>
     </header>
 
@@ -843,6 +930,30 @@
                     const img = new Image();
                     img.src = image;
                 });
+                            // Menú hamburguesa
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const menuOverlay = document.querySelector('.menu-overlay');
+        
+            menuToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+            });
+        
+            menuOverlay.addEventListener('click', function() {
+                nav.classList.remove('active');
+                this.classList.remove('active');
+            });
+        
+            // Cerrar menú al hacer clic en un enlace (en móviles)
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        nav.classList.remove('active');
+                        menuOverlay.classList.remove('active');
+                    }
+                });
+    });
     </script>
 </body>
 </html>
