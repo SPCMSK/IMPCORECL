@@ -630,6 +630,59 @@ Codigo: <!DOCTYPE html>
                 font-size: 1rem;
             }
         }
+            /* Estilos para postulaciones */
+        .postulation-form {
+            padding: 1.5rem;
+        }
+    
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+    
+        .form-group label {
+            display: block;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+    
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-accent);
+            color: white;
+            border-radius: 4px;
+        }
+    
+        .warning-text {
+            color: var(--color-primary);
+            font-size: 0.8rem;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: rgba(165, 6, 115, 0.1);
+            border-left: 3px solid var(--color-primary);
+        }
+    
+        @media (max-width: 768px) {
+            header img.logo {
+                display: none;
+            }
+            
+            nav {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                background: var(--color-darker);
+                padding: 1rem;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+            
+            nav.visible {
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -783,32 +836,118 @@ Codigo: <!DOCTYPE html>
             </div>
         </div>
     </section>
-
-    <!-- Contacto Section -->
-    <section class="section" id="contacto">
-        <h2 class="section-title fade-in">Contacto</h2>
+        <!-- Sección Postulaciones -->
+    <section class="section postulations" id="postulaciones">
+        <h2 class="section-title fade-in">Postulaciones</h2>
         
-        <div class="contact-form fade-in" style="max-width: 600px; margin: 0 auto;">
-            <form id="contactForm">
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Nombre</label>
-                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;">
+        <div class="residents-grid">
+            <!-- Postulación 1 -->
+            <div class="resident-card fade-in">
+                <div class="event-content">
+                    <h3 class="event-title">🟣 Enviar Demo</h3>
+                    <form class="postulation-form">
+                        <div class="form-group">
+                            <label for="djName1">Nombre de DJ</label>
+                            <input type="text" id="djName1" name="djName1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email1">Correo electrónico</label>
+                            <input type="email" id="email1" name="email1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="soundcloud1">Link de SoundCloud</label>
+                            <input type="url" id="soundcloud1" name="soundcloud1" required>
+                        </div>
+                        <div class="form-note">
+                            <p class="warning-text">⚠️ IMPORTANTE: El track debe estar PRIVADO y MASTERIZADO. Si no cumple, no será considerado.</p>
+                        </div>
+                        <button type="submit" class="cta-button">Enviar Demo</button>
+                    </form>
                 </div>
-                
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Email</label>
-                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;">
+            </div>
+    
+            <!-- Postulación 2 -->
+            <div class="resident-card fade-in">
+                <div class="event-content">
+                    <h3 class="event-title">🟣 Postulación IMP RADIO</h3>
+                    <form class="postulation-form">
+                        <div class="form-group">
+                            <label for="djName2">Nombre de DJ</label>
+                            <input type="text" id="djName2" name="djName2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email2">Correo electrónico</label>
+                            <input type="email" id="email2" name="email2" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="presskit2">Presskit PDF</label>
+                            <input type="file" id="presskit2" name="presskit2" accept=".pdf" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="soundcloud2">Set de SoundCloud</label>
+                            <input type="url" id="soundcloud2" name="soundcloud2" required>
+                        </div>
+                        <button type="submit" class="cta-button">Enviar Postulación</button>
+                    </form>
                 </div>
-                
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Mensaje</label>
-                    <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;"></textarea>
+            </div>
+    
+            <!-- Postulación 3 -->
+            <div class="resident-card fade-in">
+                <div class="event-content">
+                    <h3 class="event-title">🟣 Podcast Immersive</h3>
+                    <form class="postulation-form">
+                        <div class="form-group">
+                            <label for="djName3">Nombre de DJ</label>
+                            <input type="text" id="djName3" name="djName3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email3">Correo electrónico</label>
+                            <input type="email" id="email3" name="email3" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="presskit3">Presskit PDF</label>
+                            <input type="file" id="presskit3" name="presskit3" accept=".pdf" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="soundcloud3">Set de SoundCloud</label>
+                            <input type="url" id="soundcloud3" name="soundcloud3" required>
+                        </div>
+                        <div class="form-note">
+                            <p class="warning-text">⚠️ IMPORTANTE: El set debe estar PRIVADO. Si no cumple, no será considerado.</p>
+                        </div>
+                        <button type="submit" class="cta-button">Enviar Postulación</button>
+                    </form>
                 </div>
-                
-                <button type="submit" class="cta-button" style="width: 100%;">Enviar Mensaje</button>
-            </form>
+            </div>
         </div>
     </section>
+    
+        <!-- Contacto Section -->
+        <section class="section" id="contacto">
+            <h2 class="section-title fade-in">Contacto</h2>
+            
+            <div class="contact-form fade-in" style="max-width: 600px; margin: 0 auto;">
+                <form id="contactForm">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="name" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Nombre</label>
+                        <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="email" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Email</label>
+                        <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="message" style="display: block; margin-bottom: 0.5rem; color: var(--color-light);">Mensaje</label>
+                        <textarea id="message" name="message" rows="5" required style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid #333; background-color: rgba(255, 255, 255, 0.1); color: white;"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button" style="width: 100%;">Enviar Mensaje</button>
+                </form>
+            </div>
+        </section>
 
     <!-- Footer -->
     <footer>
@@ -833,6 +972,28 @@ Codigo: <!DOCTYPE html>
                 } else {
                     header.classList.remove('header-scrolled');
                 }
+            });
+                        // Ocultar nav al hacer scroll
+            let lastScroll = 0;
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > lastScroll && currentScroll > 100) {
+                    document.querySelector('nav').classList.remove('visible');
+                } else {
+                    document.querySelector('nav').classList.add('visible');
+                }
+                lastScroll = currentScroll;
+            });
+        
+            // Validación de formularios
+            document.querySelectorAll('.postulation-form').forEach(form => {
+                form.addEventListener('submit', e => {
+                    e.preventDefault();
+                    // Validar campos aquí
+                    alert('Postulación enviada correctamente');
+                    form.reset();
+                });
             });
             
             // Scroll suave para enlaces internos
