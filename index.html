@@ -630,58 +630,32 @@ Codigo: <!DOCTYPE html>
                 font-size: 1rem;
             }
         }
-            /* Estilos para postulaciones */
+       /* Estilos para formularios */
         .postulation-form {
-            padding: 1.5rem;
+          background: rgba(30, 30, 30, 0.8);
+          padding: 2rem;
+          border-radius: 8px;
+          border: 1px solid var(--color-primary);
         }
-    
-        .form-group {
-            margin-bottom: 1.5rem;
+        
+        .glow-input {
+          background: rgba(0, 0, 0, 0.5);
+          border: 1px solid #A50673;
+          color: white;
+          padding: 0.8rem;
+          width: 100%;
+          transition: var(--transition-base);
         }
-    
-        .form-group label {
-            display: block;
-            color: var(--color-secondary);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+        
+        .glow-input:focus {
+          border-color: #1CA39E;
+          box-shadow: 0 0 10px #1CA39E;
         }
-    
-        .form-group input {
-            width: 100%;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--color-accent);
-            color: white;
-            border-radius: 4px;
-        }
-    
-        .warning-text {
-            color: var(--color-light);
-            font-size: 0.8rem;
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background: rgba(165, 6, 115, 0.1);
-            border-left: 3px solid var(--color-primary);
-        }
-    
-        @media (max-width: 768px) {
-            header img.logo {
-                display: none;
-            }
-            
-            nav {
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                background: var(--color-darker);
-                padding: 1rem;
-                transform: translateY(100%);
-                transition: transform 0.3s ease;
-            }
-            
-            nav.visible {
-                transform: translateY(0);
-            }
+        
+        .neon-text {
+          color: #A50673;
+          text-shadow: 0 0 8px #A50673;
+          margin-bottom: 1.5rem;
         }
     </style>
 </head>
@@ -834,29 +808,33 @@ Codigo: <!DOCTYPE html>
         
         <div class="residents-grid">
             <!-- Postulación 1 -->
-        <div class="resident-card fade-in">
-                <div class="event-content">
-                    <h3 class="event-title">🟣 Envio de Demos</h3>
-                    <form class="postulation-form">
-                        <div class="form-group">
-                            <label for="djName2">Nombre de DJ</label>
-                            <input type="text" id="djName2" name="djName2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email2">Correo electrónico</label>
-                            <input type="email" id="email2" name="email2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="soundcloud2">Tracks o Playlist Link </label>
-                            <input type="url" id="soundcloud2" name="soundcloud2" required>
-                        </div>
-                        <div class="form-note">
-                            <p class="warning-text">⚠️ IMPORTANTE: El track o playllist deben estar PRIVADOs. Si no cumple, no será considerado.</p>
-                        </div>
-                        <button type="submit" class="cta-button">Enviar Postulación</button>
+                    <!-- Formulario para DEMOS -->
+                    <form class="postulation-form" id="demo-form">
+                      <h3 class="event-title neon-text">🟣 ENVIAR DEMO</h3>
+                      
+                      <div class="form-group">
+                        <label for="dj">NOMBRE DE DJ</label>
+                        <input type="text" id="dj" name="dj" required class="glow-input">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="email">EMAIL</label>
+                        <input type="email" id="email" name="email" required class="glow-input">
+                      </div>
+                      
+                      <div class="form-group">
+                        <label for="url">LINK DE SOUNDCLOUD</label>
+                        <input type="url" id="url" name="url" required class="glow-input">
+                      </div>
+                      
+                      <input type="hidden" name="type" value="demo">
+                      
+                      <button type="submit" class="cta-button pulse-effect">
+                        <span class="glow-text">ENVIAR</span>
+                      </button>
+                      
+                      <p class="warning-text">⚠️ EL TRACK DEBE ESTAR PRIVADO Y MASTERIZADO</p>
                     </form>
-                </div>
-            </div>
     
             <!-- Postulación 2 -->
             <div class="resident-card fade-in">
@@ -1094,6 +1072,36 @@ Codigo: <!DOCTYPE html>
         }
         createParticles();
         });
+                document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              
+              const submitBtn = form.querySelector('button[type="submit"]');
+              submitBtn.disabled = true;
+              submitBtn.innerHTML = '<span class="glow-text">ENVIANDO...</span>';
+              
+              const formData = new FormData(form);
+              
+              try {
+                const response = await fetch('https://your-worker.impcore.workers.dev', {
+                  method: 'POST',
+                  body: formData
+                });
+                
+                if (response.ok) {
+                  alert('✅ POSTULACIÓN ENVIADA');
+                  form.reset();
+                } else {
+                  throw new Error('Error en el servidor');
+                }
+              } catch (error) {
+                alert('❌ ERROR: Intenta nuevamente');
+              } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="glow-text">ENVIAR</span>';
+              }
+            });
+          });
     </script>
 </body>
 </html>
