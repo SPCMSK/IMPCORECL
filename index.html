@@ -1,3 +1,4 @@
+
 Codigo: <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -630,32 +631,105 @@ Codigo: <!DOCTYPE html>
                 font-size: 1rem;
             }
         }
-       /* Estilos para formularios */
+        /* Estilos para formularios de postulación */
         .postulation-form {
-          background: rgba(30, 30, 30, 0.8);
-          padding: 2rem;
-          border-radius: 8px;
-          border: 1px solid var(--color-primary);
+            background: rgba(10, 10, 10, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-primary);
+            box-shadow: 0 0 20px rgba(165, 6, 115, 0.2);
+            transition: var(--transition-base);
         }
-        
+
+        .postulation-form:hover {
+            box-shadow: 0 0 30px rgba(165, 6, 115, 0.4);
+        }
+
         .glow-input {
-          background: rgba(0, 0, 0, 0.5);
-          border: 1px solid #A50673;
-          color: white;
-          padding: 0.8rem;
-          width: 100%;
-          transition: var(--transition-base);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--color-primary);
+            border-radius: 4px;
+            color: white;
+            padding: 0.8rem;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            transition: var(--transition-base);
         }
-        
+
         .glow-input:focus {
-          border-color: #1CA39E;
-          box-shadow: 0 0 10px #1CA39E;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 10px var(--color-secondary);
+            outline: none;
         }
-        
+
+        select.glow-input option {
+            background-color: var(--color-darker);
+            color: white;
+        }
+
         .neon-text {
-          color: #A50673;
-          text-shadow: 0 0 8px #A50673;
-          margin-bottom: 1.5rem;
+            color: var(--color-primary);
+            text-shadow: 0 0 8px var(--color-primary);
+            font-family: var(--font-heading);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--color-secondary);
+        }
+
+        .form-message {
+            min-height: 24px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .error-message {
+            color: #ff3e3e;
+            animation: pulse 1s infinite;
+        }
+
+        .success-message {
+            color: #4eff4e;
+            animation: glow 1.5s infinite;
+        }
+
+        .honeypot-field {
+            display: none;
+            position: absolute;
+            left: -9999px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px #4eff4e; }
+            50% { text-shadow: 0 0 10px #4eff4e, 0 0 15px #4eff4e; }
+            100% { text-shadow: 0 0 5px #4eff4e; }
+        }
+
+        .pulse-effect {
+            animation: buttonPulse 2s infinite alternate;
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
     </style>
 </head>
@@ -802,44 +876,77 @@ Codigo: <!DOCTYPE html>
             </div>
         </div>
     </section>
-        <!-- Sección Postulaciones -->
+    <!-- Sección Postulaciones -->
     <section class="section postulations" id="postulaciones">
         <h2 class="section-title fade-in">Postulaciones</h2>
         
-        <div class="residents-grid">
-<!-- Formulario DEMO (Único) -->
-            <form id="impcore-form" class="postulation-form neon-border">
-              <input type="hidden" name="form_type" value="demo"> <!-- Cambia a "radio_podcast" para el otro formulario -->
-              
-              <div class="form-group">
-                <label for="dj-name">NOMBRE ARTÍSTICO</label>
-                <input type="text" id="dj-name" name="dj_name" required class="glow-input">
-              </div>
+        <div class="postulation-container" style="max-width: 800px; margin: 0 auto; display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
+            <!-- Formulario para DEMOS -->
+            <div class="postulation-card fade-in" style="flex: 1; min-width: 300px;">
+                <h3 class="neon-text">POSTULAR DEMO</h3>
+                <form id="demo-form" class="postulation-form neon-border">
+                    <input type="hidden" name="form_type" value="demo">
+                    <input type="hidden" name="honeypot" class="honeypot-field">
+                    
+                    <div class="form-group">
+                        <label for="demo-dj-name">NOMBRE ARTÍSTICO</label>
+                        <input type="text" id="demo-dj-name" name="dj_name" required class="glow-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-email">EMAIL</label>
+                        <input type="email" id="demo-email" name="email" required class="glow-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="demo-soundcloud-url">LINK DE SOUNDCLOUD (PRIVADO)</label>
+                        <input type="url" id="demo-soundcloud-url" name="soundcloud_url" required class="glow-input" placeholder="https://soundcloud.com/...">
+                    </div>
+                    
+                    <div class="form-message" id="demo-form-message"></div>
+                    
+                    <button type="submit" class="cta-button pulse-effect">
+                        <span class="glow-text">ENVIAR DEMO</span>
+                    </button>
+                </form>
+            </div>
             
-              <div class="form-group">
-                <label for="email">EMAIL</label>
-                <input type="email" id="email" name="email" required class="glow-input">
-              </div>
-            
-              <div class="form-group">
-                <label for="soundcloud-url">LINK DE SOUNDCLOUD (PRIVADO)</label>
-                <input type="url" id="soundcloud-url" name="soundcloud_url" required class="glow-input" placeholder="https://soundcloud.com/...">
-              </div>
-            
-              <!-- Selector para Radio/Podcast (solo en el segundo formulario) -->
-              <div class="form-group" id="type-selector" style="display: none;">
-                <label for="submission-type">TIPO</label>
-                <select id="submission-type" name="submission_type" class="glow-input">
-                  <option value="radio">IMP RADIO</option>
-                  <option value="podcast">PODCAST IMMERSIVE</option>
-                </select>
-              </div>
-            
-              <button type="submit" class="cta-button pulse-effect">
-                <span class="glow-text">ENVIAR</span>
-              </button>
-            </form>
-                </div>
+            <!-- Formulario para RADIO/PODCAST -->
+            <div class="postulation-card fade-in" style="flex: 1; min-width: 300px;">
+                <h3 class="neon-text">POSTULAR A IMP RADIO / PODCAST</h3>
+                <form id="radio-podcast-form" class="postulation-form neon-border">
+                    <input type="hidden" name="form_type" value="radio_podcast">
+                    <input type="hidden" name="honeypot" class="honeypot-field">
+                    
+                    <div class="form-group">
+                        <label for="rp-dj-name">NOMBRE ARTÍSTICO</label>
+                        <input type="text" id="rp-dj-name" name="dj_name" required class="glow-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rp-email">EMAIL</label>
+                        <input type="email" id="rp-email" name="email" required class="glow-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rp-soundcloud-url">LINK DE SOUNDCLOUD (PRIVADO)</label>
+                        <input type="url" id="rp-soundcloud-url" name="soundcloud_url" required class="glow-input" placeholder="https://soundcloud.com/...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="submission-type">TIPO</label>
+                        <select id="submission-type" name="submission_type" class="glow-input">
+                            <option value="radio">IMP RADIO</option>
+                            <option value="podcast">PODCAST IMMERSIVE</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-message" id="rp-form-message"></div>
+                    
+                    <button type="submit" class="cta-button pulse-effect">
+                        <span class="glow-text">ENVIAR</span>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
@@ -1017,54 +1124,132 @@ Codigo: <!DOCTYPE html>
         }
         createParticles();
         });
+        // Sistema de postulaciones
+document.addEventListener('DOMContentLoaded', () => {
+    // Referencias a los formularios
+    const demoForm = document.getElementById('demo-form');
+    const radioPodcastForm = document.getElementById('radio-podcast-form');
+    
+    // Backend API URL
+    const BACKEND_URL = 'https://impcore-backend.impcorecl.workers.dev/'; // Reemplaza con tu dominio de Cloudflare Worker
+    
+    // Función para validar formularios
+    function validateForm(form) {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        const errors = [];
         
-        document.addEventListener('DOMContentLoaded', () => {
-          // Configuración según el formulario
-          const form = document.getElementById('impcore-form');
-          const isRadioPodcastForm = form.querySelector('input[name="form_type"]').value === 'radio_podcast';
+        // Validar nombre artístico
+        if (!data.dj_name || data.dj_name.trim().length === 0) {
+            errors.push('El nombre artístico es requerido');
+        }
         
-          if (isRadioPodcastForm) {
-            document.getElementById('type-selector').style.display = 'block';
-          }
+        // Validar email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!data.email || !emailRegex.test(data.email)) {
+            errors.push('Ingresa un email válido');
+        }
         
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Validar URL de SoundCloud
+        const soundcloudRegex = /^https:\/\/soundcloud\.com\/.+/;
+        if (!data.soundcloud_url || !soundcloudRegex.test(data.soundcloud_url)) {
+            errors.push('Ingresa una URL válida de SoundCloud');
+        }
+        
+        // Validar tipo de postulación
+        if (data.form_type === 'radio_podcast' && 
+            (!data.submission_type || !['radio', 'podcast'].includes(data.submission_type))) {
+            errors.push('Selecciona un tipo válido');
+        }
+        
+        // Verificar honeypot (protección contra bots)
+        if (data.honeypot && data.honeypot.length > 0) {
+            errors.push('Verificación de seguridad fallida');
+        }
+        
+        return {
+            isValid: errors.length === 0,
+            errors: errors,
+            data: data
+        };
+    }
+    
+    // Función para mostrar mensajes
+    function showMessage(elementId, message, isError = false) {
+        const messageElement = document.getElementById(elementId);
+        messageElement.textContent = message;
+        messageElement.className = isError ? 'error-message' : 'success-message';
+        
+        // Limpiar el mensaje después de 5 segundos si es éxito
+        if (!isError) {
+            setTimeout(() => {
+                messageElement.textContent = '';
+                messageElement.className = '';
+            }, 5000);
+        }
+    }
+    
+    // Función para enviar formulario
+    async function submitForm(form, formMessageId) {
+        // Validar el formulario
+        const validation = validateForm(form);
+        if (!validation.isValid) {
+            showMessage(formMessageId, validation.errors[0], true);
+            return false;
+        }
+        
+        // Preparar el botón de envío
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="glow-text">ENVIANDO...</span>';
+        
+        try {
+            // Enviar datos al backend
+            const response = await fetch(BACKEND_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(validation.data)
+            });
             
-            const submitBtn = form.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="glow-text loading">ENVIANDO...</span>';
-        
-            // Determinar el template_id según el formulario
-            const templateId = isRadioPodcastForm ? 
-              (form.querySelector('#submission-type').value === 'radio' ? 'template_radio' : 'template_podcast') : 
-              'template_demo';
-        
-            try {
-              const response = await emailjs.send(
-                'service_ffkevxa', // Reemplaza con tu Service ID
-                templateId, // Usa el template correspondiente
-                {
-                  dj_name: form.dj_name.value,
-                  email: form.email.value,
-                  soundcloud_url: form.soundcloud_url.value,
-                  submission_type: isRadioPodcastForm ? form.submission_type.value : 'demo'
-                }
-              );
-        
-              if (response.status === 200) {
-                submitBtn.innerHTML = '<span class="glow-text">✓ ENVIADO</span>';
+            const result = await response.json();
+            
+            if (response.ok) {
+                showMessage(formMessageId, 'Enviado correctamente, ¡Gracias!');
                 form.reset();
-              }
-            } catch (error) {
-              alert(`❌ ERROR: ${error.text}`);
-            } finally {
-              setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span class="glow-text">ENVIAR</span>';
-              }, 3000);
+            } else {
+                showMessage(formMessageId, result.error || 'Error al enviar el formulario', true);
             }
-          });
+        } catch (error) {
+            console.error('Error:', error);
+            showMessage(formMessageId, 'Error de conexión, inténtalo más tarde', true);
+        } finally {
+            // Restaurar el botón
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }, 2000);
+        }
+    }
+    
+    // Event listeners para los formularios
+    if (demoForm) {
+        demoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitForm(demoForm, 'demo-form-message');
         });
+    }
+    
+    if (radioPodcastForm) {
+        radioPodcastForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitForm(radioPodcastForm, 'rp-form-message');
+        });
+    }
+});
+    
     </script>
 </body>
 </html>
