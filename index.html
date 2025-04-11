@@ -1079,146 +1079,165 @@ Codigo: <!DOCTYPE html>
 
     <!-- JavaScript optimizado -->
     <script>
-        // Esperar a que el DOM esté completamente cargado
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ocultar intro después de 3.5 segundos
-            setTimeout(function() {
-                document.querySelector('.intro-overlay').style.display = 'none';
-            }, 3500);
-            
-            // Agregar función de scroll para header
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scroll hacia abajo
-                header.style.transform = 'translateY(-100%)';
-            } else {
-                // Scroll hacia arriba o inicio de página
-                header.style.transform = 'translateY(0)';
-            }
-            
-            lastScrollTop = scrollTop;
-        });
-                // Agregar esto dentro del script existente, en document.addEventListener('DOMContentLoaded')
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileNav = document.getElementById('mobileNav');
+// Esperar a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    // Ocultar intro después de 3.5 segundos
+    setTimeout(function() {
+        const introOverlay = document.querySelector('.intro-overlay');
+        if (introOverlay) {
+            introOverlay.style.display = 'none';
+        }
+    }, 3500);
+    
+    // Agregar función de scroll para header
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('header');
+        if (!header) return;
+        
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scroll hacia abajo
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            // Scroll hacia arriba o inicio de página
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // Menú móvil
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
 
-            if (menuToggle && mobileNav) {
-                menuToggle.addEventListener('click', function() {
-                    mobileNav.classList.toggle('active');
-                    // Cambia el icono
-                    const icon = menuToggle.querySelector('i');
-                    if (icon.classList.contains('fa-bars')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-times');
-                    } else {
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                });
-                
-                // Cerrar menú cuando se hace clic en un enlace
-                document.querySelectorAll('#mobileNav .nav-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileNav.classList.remove('active');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    });
-                });
-                
-                // Cerrar menú al hacer clic fuera
-                document.addEventListener('click', function(event) {
-                    if (!mobileNav.contains(event.target) && !menuToggle.contains(event.target) && mobileNav.classList.contains('active')) {
-                        mobileNav.classList.remove('active');
-                        const icon = menuToggle.querySelector('i');
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
-                )};
+    if (menuToggle && mobileNav) {
+        menuToggle.addEventListener('click', function() {
+            mobileNav.classList.toggle('active');
+            // Cambia el icono
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             }
+        });
+        
+        // Cerrar menú cuando se hace clic en un enlace
+        document.querySelectorAll('#mobileNav .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             });
+        });
+        
+        // Cerrar menú al hacer clic fuera - CORREGIDO
+        document.addEventListener('click', function(event) {
+            if (mobileNav && menuToggle && !mobileNav.contains(event.target) && 
+                !menuToggle.contains(event.target) && 
+                mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+                const icon = menuToggle.querySelector('i');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+    
+    // Scroll suave para enlaces internos - CORREGIDO
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
             
-            // Scroll suave para enlaces internos
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
                 });
-            
-            // Observador de intersección para animaciones al hacer scroll
-            const fadeElements = document.querySelectorAll('.fade-in');
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const fadeObserver = new IntersectionObserver(function(entries, observer) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-            
-            fadeElements.forEach(element => {
-                fadeObserver.observe(element);
+            }
+        });
+    });
+    
+    // Observador de intersección para animaciones al hacer scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    if (fadeElements.length > 0 && 'IntersectionObserver' in window) {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const fadeObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
             });
+        }, observerOptions);
+        
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+    }
+    
+    // Manejar el formulario de contacto
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Manejar el formulario de contacto
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Aquí iría la lógica para enviar el formulario
-                    // Por ahora solo mostramos un mensaje de éxito
-                    alert('Mensaje enviado con éxito. Nos pondremos en contacto contigo pronto.');
-                    contactForm.reset();
-                });
-            }
-            
-            // Precarga de imágenes cuando sea necesario
-            function preloadImages() {
-                const images = [
-                    'img/evento1.jpg',
-                    'img/evento2.jpg',
-                    'img/evento3.jpg',
-                    'img/album2.jpg',
-                    'img/album3.jpg',
-                    'img/residente1.jpeg',
-                    'img/residente2.jpg',
-                    'img/residente3.jpg'
-                ];
-                
-                images.forEach(image => {
-                    const img = new Image();
-                    img.src = image;
-                });
-            }
-            
-            // Precargar imágenes cuando la red esté inactiva
-            if ('connection' in navigator && navigator.connection.saveData) {
-                // No precargar si el usuario tiene ahorro de datos activado
-            } else {
-                // Esperar a que la página esté cargada para precargar imágenes
-                window.addEventListener('load', preloadImages);
-            }
-        // Control de Radio
-        const radioToggle = document.getElementById('radioToggle');
-        const player = document.getElementById('streamPlayer');
+            // Aquí iría la lógica para enviar el formulario
+            // Por ahora solo mostramos un mensaje de éxito
+            alert('Mensaje enviado con éxito. Nos pondremos en contacto contigo pronto.');
+            contactForm.reset();
+        });
+    }
+    
+    // Precarga de imágenes cuando sea necesario
+    function preloadImages() {
+        const images = [
+            'img/evento1.jpg',
+            'img/evento2.jpg',
+            'img/evento3.jpg',
+            'img/album2.jpg',
+            'img/album3.jpg',
+            'img/residente1.jpeg',
+            'img/residente2.jpg',
+            'img/residente3.jpg'
+        ];
+        
+        images.forEach(image => {
+            const img = new Image();
+            img.src = image;
+        });
+    }
+    
+    // Precargar imágenes cuando la red esté inactiva
+    if ('connection' in navigator && navigator.connection.saveData) {
+        // No precargar si el usuario tiene ahorro de datos activado
+    } else {
+        // Esperar a que la página esté cargada para precargar imágenes
+        window.addEventListener('load', preloadImages);
+    }
+
+    // Control de Radio - Verificando si existen los elementos primero
+    const radioToggle = document.getElementById('radioToggle');
+    const player = document.getElementById('streamPlayer');
+    
+    if (radioToggle && player) {
         player.src = 'TU_STREAM_URL_AQUI';
 
         radioToggle.addEventListener('click', () => {
@@ -1232,26 +1251,32 @@ Codigo: <!DOCTYPE html>
                 radioToggle.classList.remove('playing');
             }
         });
+    }
 
-        // Efecto Parallax
-        function createParticles() {
-            const container = document.querySelector('.parallax-container');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.cssText = `
-                    left: ${Math.random() * 100}%;
-                    top: ${Math.random() * 100}%;
-                    width: ${Math.random() * 4 + 2}px;
-                    height: ${Math.random() * 4 + 2}px;
-                    animation-duration: ${Math.random() * 10 + 10}s;
-                `;
-                container.appendChild(particle);
-            }
+    // Efecto Parallax
+    function createParticles() {
+        const container = document.querySelector('.parallax-container');
+        if (!container) return;
+        
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.cssText = `
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                width: ${Math.random() * 4 + 2}px;
+                height: ${Math.random() * 4 + 2}px;
+                animation-duration: ${Math.random() * 10 + 10}s;
+            `;
+            container.appendChild(particle);
         }
-        createParticles();
-        });
-        // Sistema de postulaciones
+    }
+    
+    // Intentar crear partículas si existe el contenedor
+    createParticles();
+});
+
+// Sistema de postulaciones - Separado del DOMContentLoaded principal para mejor estructura
 document.addEventListener('DOMContentLoaded', () => {
     // Referencias a los formularios
     const demoForm = document.getElementById('demo-form');
@@ -1304,6 +1329,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para mostrar mensajes
     function showMessage(elementId, message, isError = false) {
         const messageElement = document.getElementById(elementId);
+        if (!messageElement) return;
+        
         messageElement.textContent = message;
         messageElement.className = isError ? 'error-message' : 'success-message';
         
@@ -1318,6 +1345,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Función para enviar formulario
     async function submitForm(form, formMessageId) {
+        if (!form) return false;
+        
         // Validar el formulario
         const validation = validateForm(form);
         if (!validation.isValid) {
@@ -1327,6 +1356,8 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Preparar el botón de envío
         const submitBtn = form.querySelector('button[type="submit"]');
+        if (!submitBtn) return false;
+        
         const originalBtnText = submitBtn.innerHTML;
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="glow-text">ENVIANDO...</span>';
