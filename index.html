@@ -1303,7 +1303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Validar URL de SoundCloud
-        const soundcloudRegex = /^https:\/\/soundcloud\.com\/.+/;
+        const soundcloudRegex = /^https:\/\/soundcloud\.com\/[^\s]+$/;
         if (!data.soundcloud_url || !soundcloudRegex.test(data.soundcloud_url)) {
             errors.push('Ingresa una URL válida de SoundCloud');
         }
